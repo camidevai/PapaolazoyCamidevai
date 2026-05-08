@@ -33,6 +33,10 @@ if (missing.length) {
   process.exit(1);
 }
 
+/* Snapwidget es opcional — si no está configurado el modal muestra placeholder */
+const snapIdCami  = process.env.SNAP_ID_CAMI  || '';
+const snapIdPaolo = process.env.SNAP_ID_PAPA   || '';
+
 const WSP_MSG = encodeURIComponent('Hola! Vi su perfil en influencerstemuco.netlify.app y me gustaría proponerles una colaboración 🚀');
 const wspUrlCami  = `https://wa.me/${process.env.WSP_NUMBER_CAMI}?text=${WSP_MSG}`;
 const wspUrlPaolo = `https://wa.me/${process.env.WSP_NUMBER_PAOLO}?text=${WSP_MSG}`;
@@ -48,7 +52,9 @@ html = html
   .replace("'YOUR_SERVICE_ID'",  `'${process.env.EMAILJS_SERVICE_ID}'`)
   .replace("'YOUR_TEMPLATE_ID'", `'${process.env.EMAILJS_TEMPLATE_ID}'`)
   .replace(/__WSP_URL_CAMI__/g,  wspUrlCami)
-  .replace(/__WSP_URL_PAOLO__/g, wspUrlPaolo);
+  .replace(/__WSP_URL_PAOLO__/g, wspUrlPaolo)
+  .replace(/__SNAP_ID_CAMI__/g,  snapIdCami)
+  .replace(/__SNAP_ID_PAPA__/g,  snapIdPaolo);
 
 fs.writeFileSync(path.join(dist, 'index.html'), html);
 
