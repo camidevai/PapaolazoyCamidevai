@@ -1,0 +1,10 @@
+# Credenciales — NUNCA subir al repo
+.env
+
+# Carpeta generada por el build (Netlify la crea automáticamente)
+dist/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
