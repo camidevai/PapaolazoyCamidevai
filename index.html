@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Camidevai × Papaolazo — Tecnología + Humor = Viral</title>
+  <meta name="description" content="Camidevai y Papaolazo: dos creadores de contenido listos para hacer tu marca viral. IA, Tecnología, Humor y entretenimiento.">
+  <meta name="theme-color" content="#050508">
+  <meta property="og:title" content="Camidevai × Papaolazo">
+  <meta property="og:description" content="Tecnología + Humor = Contenido Viral">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+  <style>
+    /* ─── Reset & tokens ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:            #050508;
+      --bg2:           #090910;
+      --blue:          #3b82f6;
+      --blue-light:    #60a5fa;
+      --purple:        #8b5cf6;
+      --purple-light:  #a78bfa;
+      --cyan:          #06b6d4;
+      --cyan-light:    #22d3ee;
+      --pink:          #ec4899;
+      --green:         #4ade80;
+      --white:         #ffffff;
+      --white80:       rgba(255,255,255,0.8);
+      --white60:       rgba(255,255,255,0.6);
+      --white30:       rgba(255,255,255,0.3);
+      --white10:       rgba(255,255,255,0.1);
+      --glass:         rgba(255,255,255,0.055);
+      --glass-hover:   rgba(255,255,255,0.09);
+      --glass-border:  rgba(255,255,255,0.1);
+      --radius-sm:     12px;
+      --radius:        20px;
+      --radius-lg:     28px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── Utilities ─── */
+    .gradient-text-blue {
+      background: linear-gradient(135deg, var(--blue-light), var(--cyan-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-text-purple {
+      background: linear-gradient(135deg, var(--purple-light), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-text-main {
+      background: linear-gradient(135deg, var(--blue), var(--purple), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Navigation ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 14px 24px;
+      background: rgba(5,5,8,0.75);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px;
+      border-radius: 100px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+    }
+    .nav-cta:hover, .nav-cta:focus-visible {
+      background: rgba(99,102,241,0.2);
+      border-color: rgba(99,102,241,0.45);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 110px 24px 72px;
+      overflow: hidden;
+    }
+
+    /* Layered gradient background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 90% 55% at 50% -15%, rgba(79,70,229,0.45) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 55% at 15% 85%,  rgba(6,182,212,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 55% 55% at 85% 85%,  rgba(139,92,246,0.18) 0%, transparent 55%);
+      animation: bgPulse 10s ease-in-out infinite alternate;
+    }
+    @keyframes bgPulse {
+      0%   { opacity: 0.75; transform: scale(1);    }
+      100% { opacity: 1;    transform: scale(1.04); }
+    }
+
+    /* Subtle grid */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 52px 52px;
+    }
+
+    /* Floating ambient orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 420px; height: 420px;
+      background: rgba(79,70,229,0.14);
+      top: -120px; left: -100px;
+      animation: orb1 7s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 320px; height: 320px;
+      background: rgba(6,182,212,0.1);
+      bottom: -60px; right: -60px;
+      animation: orb2 9s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 220px; height: 220px;
+      background: rgba(236,72,153,0.08);
+      top: 45%; right: 8%;
+      animation: orb3 11s ease-in-out infinite;
+    }
+    @keyframes orb1 { 0%,100%{transform:translate(0,0)}   50%{transform:translate(40px,-35px)} }
+    @keyframes orb2 { 0%,100%{transform:translate(0,0)}   50%{transform:translate(-30px,28px)} }
+    @keyframes orb3 { 0%,100%{transform:translate(0,0)}   50%{transform:translate(20px,-40px)} }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      width: 100%;
+      max-width: 860px;
+    }
+
+    /* Live badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 100px;
+      padding: 7px 18px;
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--cyan-light);
+      letter-spacing: 0.3px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(12px);
+      animation: fadeDown 0.7s ease both;
+    }
+    .hero-badge .dot {
+      width: 7px; height: 7px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--cyan);
+      animation: blink 1.8s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+    .hero-title {
+      font-size: clamp(34px, 7.5vw, 68px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 18px;
+      animation: fadeUp 0.7s ease 0.15s both;
+    }
+    .hero-subtitle {
+      font-size: clamp(15px, 2.8vw, 19px);
+      color: var(--white60);
+      font-weight: 400;
+      margin-bottom: 52px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+      animation: fadeUp 0.7s ease 0.28s both;
+    }
+
+    /* ─── Profile Cards ─── */
+    .cards-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      max-width: 660px;
+      margin: 0 auto;
+      animation: fadeUp 0.7s ease 0.42s both;
+    }
+
+    .pcard {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 30px 22px 26px;
+      text-align: center;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(.22,1,.36,1), box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .pcard::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .pcard.cami::after { background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(59,130,246,0.12) 0%, transparent 80%); }
+    .pcard.papa::after { background: radial-gradient(ellipse 70% 40% at 50% 0%, rgba(139,92,246,0.12) 0%, transparent 80%); }
+    .pcard:hover {
+      transform: translateY(-7px);
+    }
+    .pcard:hover::after { opacity: 1; }
+    .pcard.cami:hover {
+      border-color: rgba(59,130,246,0.38);
+      box-shadow: 0 24px 64px rgba(59,130,246,0.14), 0 0 0 1px rgba(59,130,246,0.18);
+    }
+    .pcard.papa:hover {
+      border-color: rgba(139,92,246,0.38);
+      box-shadow: 0 24px 64px rgba(139,92,246,0.14), 0 0 0 1px rgba(139,92,246,0.18);
+    }
+
+    /* Avatar with gradient ring */
+    .avatar-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 14px;
+    }
+    .avatar-ring {
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      z-index: 0;
+    }
+    .avatar-ring.cami-ring { background: linear-gradient(135deg, var(--blue), var(--cyan)); }
+    .avatar-ring.papa-ring { background: linear-gradient(135deg, var(--purple), var(--pink)); }
+    .avatar-ring::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: var(--bg2);
+    }
+    .avatar-img {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      display: block;
+    }
+    /* Letter avatar fallback */
+    .avatar-letter {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+    .avatar-letter.cami-l { background: linear-gradient(135deg, #1a3557, #0ea5e9); }
+    .avatar-letter.papa-l { background: linear-gradient(135deg, #2d1152, #7c3aed); }
+
+    .pcard-name {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 6px;
+    }
+    .pcard-desc {
+      font-size: 12.5px;
+      color: var(--white60);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.2px;
+    }
+    .tag-blue   { background:rgba(59,130,246,0.14); color:#93c5fd; border:1px solid rgba(59,130,246,0.22); }
+    .tag-purple { background:rgba(139,92,246,0.14); color:#c4b5fd; border:1px solid rgba(139,92,246,0.22); }
+    .tag-cyan   { background:rgba(6,182,212,0.14);  color:#67e8f9; border:1px solid rgba(6,182,212,0.22);  }
+    .tag-pink   { background:rgba(236,72,153,0.14); color:#f9a8d4; border:1px solid rgba(236,72,153,0.22); }
+
+    .ig-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 22px;
+      border-radius: 100px;
+      font-size: 13.5px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.1px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .ig-btn:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .ig-btn.cami-ig {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #fff;
+      box-shadow: 0 0 22px rgba(59,130,246,0.28);
+    }
+    .ig-btn.cami-ig:hover { transform:scale(1.06); box-shadow:0 0 32px rgba(59,130,246,0.48); }
+    .ig-btn.papa-ig {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff;
+      box-shadow: 0 0 22px rgba(139,92,246,0.28);
+    }
+    .ig-btn.papa-ig:hover { transform:scale(1.06); box-shadow:0 0 32px rgba(139,92,246,0.48); }
+
+    /* ─── Scroll line ─── */
+    .scroll-line {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin-top: 52px;
+      animation: fadeUp 0.7s ease 0.7s both;
+      position: relative;
+      z-index: 1;
+    }
+    .scroll-line span { font-size: 11px; color: var(--white30); letter-spacing: 1.5px; text-transform: uppercase; }
+    .scroll-line .arrow { color: var(--white30); animation: bounce 2s ease-in-out infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
+
+    /* ─── Section base ─── */
+    .section {
+      padding: 88px 24px;
+      max-width: 880px;
+      margin: 0 auto;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--cyan-light);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(26px, 4.8vw, 46px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .section-text {
+      font-size: 15.5px;
+      color: var(--white60);
+      line-height: 1.72;
+      max-width: 580px;
+    }
+    .glow-bar {
+      width: 64px;
+      height: 3px;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
+      margin: 18px 0;
+    }
+
+    /* ─── Combo ─── */
+    .combo-grid {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-top: 44px;
+    }
+    .combo-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 30px 22px;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      text-align: center;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .combo-card:hover { transform: translateY(-5px); }
+    .combo-card.cami-c:hover { border-color: rgba(59,130,246,0.35); }
+    .combo-card.papa-c:hover { border-color: rgba(139,92,246,0.35); }
+    .combo-emoji { font-size: 42px; margin-bottom: 12px; display: block; }
+    .combo-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .combo-text  { font-size: 13.5px; color: var(--white60); line-height: 1.65; }
+    .combo-plus  {
+      font-size: 36px; font-weight: 900; text-align: center;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── Stats ─── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 40px;
+    }
+    .stat-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 22px 14px;
+      text-align: center;
+      backdrop-filter: blur(16px);
+      transition: transform 0.3s ease;
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+    .stat-num {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--blue-light), var(--cyan-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-lbl { font-size: 12px; color: var(--white60); margin-top: 4px; }
+
+    /* ─── Divider ─── */
+    .hr {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    }
+
+    /* ─── Contact section ─── */
+    .contact-wrap {
+      padding: 88px 24px;
+      background: var(--bg2);
+      position: relative;
+    }
+    .contact-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 560px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+    }
+    .contact-inner {
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    /* Form */
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 36px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-lbl {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--white60);
+      letter-spacing: 0.2px;
+    }
+    .form-ctrl {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-sm);
+      padding: 13px 16px;
+      font-size: 14.5px;
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+      outline: none;
+      width: 100%;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      -webkit-appearance: none;
+    }
+    .form-ctrl::placeholder { color: rgba(255,255,255,0.22); }
+    .form-ctrl:focus {
+      border-color: rgba(99,102,241,0.5);
+      box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+    }
+    .form-ctrl.has-error { border-color: rgba(248,113,113,0.5); }
+    textarea.form-ctrl { resize: vertical; min-height: 116px; }
+
+    .err-msg {
+      font-size: 11.5px;
+      color: #f87171;
+      margin-top: 3px;
+      display: none;
+    }
+    .err-msg.show { display: block; }
+
+    /* Submit button */
+    .submit-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      width: 100%;
+      padding: 15px 32px;
+      border-radius: 100px;
+      font-size: 15.5px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.1px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s;
+      box-shadow: 0 0 32px rgba(99,102,241,0.3);
+      margin-top: 4px;
+    }
+    .submit-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 44px rgba(99,102,241,0.5);
+    }
+    .submit-btn:active:not(:disabled) { transform: translateY(0); }
+    .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+    .submit-btn:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.75s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Success state */
+    .success-box {
+      display: none;
+      text-align: center;
+      padding: 40px 28px;
+      background: rgba(34,197,94,0.08);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: var(--radius);
+      margin-top: 36px;
+    }
+    .success-box.show { display: block; animation: popIn 0.5s cubic-bezier(.34,1.56,.64,1); }
+    @keyframes popIn { from{transform:scale(0.8);opacity:0} to{transform:scale(1);opacity:1} }
+    .success-icon  { font-size: 52px; margin-bottom: 14px; }
+    .success-title { font-size: 21px; font-weight: 700; color: var(--green); margin-bottom: 8px; }
+    .success-sub   { font-size: 14.5px; color: var(--white60); line-height: 1.65; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--glass-border);
+      padding: 44px 24px 36px;
+      text-align: center;
+    }
+    .footer-brand {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      margin-bottom: 18px;
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .footer-links a {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 11px;
+      color: var(--white60);
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.25s;
+    }
+    .footer-links a:hover {
+      background: rgba(99,102,241,0.18);
+      border-color: rgba(99,102,241,0.4);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    .footer-links a:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+    .footer-copy { font-size: 12.5px; color: var(--white30); }
+
+    /* ─── Floating CTA ─── */
+    .float-cta {
+      position: fixed;
+      bottom: 22px; right: 22px;
+      width: 54px; height: 54px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f472b6, var(--pink), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-size: 20px;
+      text-decoration: none;
+      z-index: 200;
+      box-shadow: 0 4px 22px rgba(139,92,246,0.42);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      animation: ctaFloat 3.5s ease-in-out infinite;
+    }
+    .float-cta:hover {
+      transform: scale(1.12);
+      box-shadow: 0 8px 32px rgba(139,92,246,0.6);
+      animation: none;
+    }
+    .float-cta:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+    @keyframes ctaFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    .float-tooltip {
+      position: absolute;
+      right: 62px;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      color: #fff;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .float-cta:hover .float-tooltip { opacity: 1; }
+
+    /* ─── Scroll-reveal ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.35s; }
+
+    /* ─── Keyframes ─── */
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-18px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(28px)}  to{opacity:1;transform:translateY(0)} }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      .cards-wrap     { grid-template-columns: 1fr; gap: 14px; }
+      .combo-grid     { grid-template-columns: 1fr; gap: 14px; }
+      .combo-plus     { font-size: 28px; text-align: center; }
+      .form-row       { grid-template-columns: 1fr; }
+      .stats-grid     { grid-template-columns: repeat(3,1fr); gap: 10px; }
+      .stat-num       { font-size: 22px; }
+      .hero-title     { letter-spacing: -1.2px; }
+    }
+    @media (max-width: 380px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 100px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+  <nav aria-label="Navegación principal">
+    <span class="nav-brand">
+      <span class="gradient-text-main">cami</span>
+      <span style="color:var(--white30);margin:0 3px">×</span>
+      <span class="gradient-text-purple">papa</span>
+    </span>
+    <a href="#contacto" class="nav-cta" aria-label="Ir a formulario de contacto">
+      <i class="fas fa-paper-plane" aria-hidden="true" style="font-size:11px"></i>
+      Contactar
+    </a>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero" aria-label="Presentación">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="orb orb-1" aria-hidden="true"></div>
+    <div class="orb orb-2" aria-hidden="true"></div>
+    <div class="orb orb-3" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge" role="note">
+        <span class="dot" aria-hidden="true"></span>
+        Disponibles para colaboraciones con marcas
+      </div>
+
+      <h1 class="hero-title">
+        Tecnología + Humor<br>
+        <span class="gradient-text-main">= Contenido Viral</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Dos creadores únicos. Una combinación imbatible para hacer tu marca memorable.
+      </p>
+
+      <!-- Tarjetas de perfil -->
+      <div class="cards-wrap" role="list">
+
+        <!-- CAMIDEVAI -->
+        <article class="pcard cami" role="listitem">
+          <div class="avatar-wrap" aria-hidden="true">
+            <div class="avatar-ring cami-ring"></div>
+            <!--
+              Para usar foto real, reemplaza la línea de abajo con:
+              <img src="foto-camidevai.jpg" alt="Camidevai" class="avatar-img">
+            -->
+            <div class="avatar-letter cami-l" aria-hidden="true">C</div>
+          </div>
+          <h2 class="pcard-name gradient-text-blue" style="-webkit-text-fill-color:transparent">@camidevai</h2>
+          <p class="pcard-desc">IA · Tecnología · Herramientas virales · Contenido educativo futurista</p>
+          <div class="tags" aria-label="Categorías">
+            <span class="tag tag-blue">IA</span>
+            <span class="tag tag-cyan">Tech</span>
+            <span class="tag tag-blue">Educación</span>
+          </div>
+          <a
+            href="https://www.instagram.com/camidevai"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ig-btn cami-ig"
+            aria-label="Ver perfil de camidevai en Instagram"
+          >
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+            Ver perfil
+          </a>
+        </article>
+
+        <!-- PAPAOLAZO -->
+        <article class="pcard papa" role="listitem">
+          <div class="avatar-wrap" aria-hidden="true">
+            <div class="avatar-ring papa-ring"></div>
+            <!--
+              Para usar foto real, reemplaza la línea de abajo con:
+              <img src="foto-papaolazo.jpg" alt="Papaolazo" class="avatar-img">
+            -->
+            <div class="avatar-letter papa-l" aria-hidden="true">P</div>
+          </div>
+          <h2 class="pcard-name gradient-text-purple" style="-webkit-text-fill-color:transparent">@papaolazo</h2>
+          <p class="pcard-desc">Humor · Sketches · Videos virales · Contenido cercano y auténtico</p>
+          <div class="tags" aria-label="Categorías">
+            <span class="tag tag-purple">Humor</span>
+            <span class="tag tag-pink">Viral</span>
+            <span class="tag tag-purple">Entretenimiento</span>
+          </div>
+          <a
+            href="https://www.instagram.com/papaolazo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ig-btn papa-ig"
+            aria-label="Ver perfil de papaolazo en Instagram"
+          >
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+            Ver perfil
+          </a>
+        </article>
+      </div>
+
+      <div class="scroll-line" aria-hidden="true">
+        <span>Descubre más</span>
+        <i class="fas fa-chevron-down arrow"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CONCEPT ══ -->
+  <section class="section" aria-labelledby="combo-heading">
+    <div class="reveal">
+      <div class="section-label" aria-hidden="true">✦ La Combinación Perfecta</div>
+      <h2 class="section-title" id="combo-heading">
+        Una dupla que<br><span class="gradient-text-main">lo tiene todo</span>
+      </h2>
+      <div class="glow-bar" aria-hidden="true"></div>
+      <p class="section-text">
+        Juntos cubren el espectro completo del contenido digital: desde lo educativo e innovador
+        hasta lo entretenido y viral. La fórmula perfecta para campañas que educan, entretienen y convierten.
+      </p>
+    </div>
+
+    <div class="combo-grid reveal reveal-delay-2">
+      <div class="combo-card cami-c">
+        <span class="combo-emoji" aria-hidden="true">🤖</span>
+        <div class="combo-title gradient-text-blue" style="-webkit-text-fill-color:transparent">Camidevai</div>
+        <p class="combo-text">IA, tecnología y herramientas del futuro explicadas de forma viral. Audiencia tech-savvy y early adopters.</p>
+      </div>
+
+      <div class="combo-plus" aria-hidden="true">×</div>
+
+      <div class="combo-card papa-c">
+        <span class="combo-emoji" aria-hidden="true">😂</span>
+        <div class="combo-title gradient-text-purple" style="-webkit-text-fill-color:transparent">Papaolazo</div>
+        <p class="combo-text">Humor auténtico, sketches y entretenimiento que conecta con audiencias masivas y genera engagement real.</p>
+      </div>
+    </div>
+
+    <div class="stats-grid reveal reveal-delay-3">
+      <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-lbl">Creadores</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="background:linear-gradient(135deg,var(--purple-light),var(--pink));-webkit-background-clip:text;background-clip:text;">∞</div>
+        <div class="stat-lbl">Alcance potencial</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="background:linear-gradient(135deg,var(--cyan),var(--blue-light));-webkit-background-clip:text;background-clip:text;">1</div>
+        <div class="stat-lbl">Collab perfecta</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr" role="separator"></div>
+
+  <!-- ══ CONTACT ══ -->
+  <section class="contact-wrap" id="contacto" aria-labelledby="contact-heading">
+    <div class="contact-inner">
+      <div class="reveal" style="text-align:center">
+        <div class="section-label" style="justify-content:center" aria-hidden="true">✦ Colaboraciones</div>
+        <h2 class="section-title" id="contact-heading">
+          Trabajemos<br><span class="gradient-text-main">juntos</span>
+        </h2>
+        <div class="glow-bar" style="margin:14px auto" aria-hidden="true"></div>
+        <p class="section-text" style="margin:0 auto;text-align:center">
+          ¿Tienes un proyecto en mente? Cuéntanos y nos ponemos en contacto en menos de 24&nbsp;horas.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <form class="form" id="contactForm" novalidate aria-label="Formulario de contacto">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-lbl" for="f-nombre">Nombre <span aria-hidden="true">*</span></label>
+              <input
+                class="form-ctrl" id="f-nombre" name="nombre"
+                type="text" placeholder="Tu nombre"
+                required autocomplete="name"
+                aria-describedby="err-nombre" aria-required="true"
+              >
+              <span class="err-msg" id="err-nombre" role="alert">Por favor ingresa tu nombre.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-lbl" for="f-empresa">Empresa</label>
+              <input
+                class="form-ctrl" id="f-empresa" name="empresa"
+                type="text" placeholder="Tu empresa"
+                autocomplete="organization"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-lbl" for="f-email">Email <span aria-hidden="true">*</span></label>
+            <input
+              class="form-ctrl" id="f-email" name="email"
+              type="email" placeholder="tu@empresa.com"
+              required autocomplete="email"
+              aria-describedby="err-email" aria-required="true"
+            >
+            <span class="err-msg" id="err-email" role="alert">Por favor ingresa un email válido.</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-lbl" for="f-mensaje">Mensaje <span aria-hidden="true">*</span></label>
+            <textarea
+              class="form-ctrl" id="f-mensaje" name="mensaje"
+              placeholder="Cuéntanos sobre tu proyecto o campaña…"
+              required
+              aria-describedby="err-mensaje" aria-required="true"
+            ></textarea>
+            <span class="err-msg" id="err-mensaje" role="alert">Por favor escribe tu mensaje.</span>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="spinner" id="btnSpinner" aria-hidden="true"></span>
+            <i class="fas fa-paper-plane" id="btnIcon" aria-hidden="true"></i>
+            <span id="btnLabel">Enviar propuesta</span>
+          </button>
+        </form>
+
+        <div class="success-box" id="successBox" role="status" aria-live="polite">
+          <div class="success-icon" aria-hidden="true">🚀</div>
+          <div class="success-title">¡Propuesta enviada!</div>
+          <p class="success-sub">Gracias por tu interés. Nos pondremos en contacto contigo pronto para hablar sobre la colaboración.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-brand">
+      <span class="gradient-text-blue" style="-webkit-text-fill-color:transparent">camidevai</span>
+      <span style="color:var(--white30);margin:0 6px">×</span>
+      <span class="gradient-text-purple" style="-webkit-text-fill-color:transparent">papaolazo</span>
+    </div>
+    <nav class="footer-links" aria-label="Redes sociales">
+      <a href="https://www.instagram.com/camidevai" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Camidevai">
+        <i class="fab fa-instagram" aria-hidden="true"></i>
+      </a>
+      <a href="https://www.instagram.com/papaolazo" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Papaolazo">
+        <i class="fab fa-instagram" aria-hidden="true"></i>
+      </a>
+    </nav>
+    <p class="footer-copy">© 2025 Camidevai × Papaolazo · Todos los derechos reservados</p>
+  </footer>
+
+  <!-- ══ FLOATING CTA ══ -->
+  <a href="#contacto" class="float-cta" aria-label="Contactar ahora">
+    <span class="float-tooltip" aria-hidden="true">Contactar</span>
+    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+  </a>
+
+  <!-- ══ SCRIPTS ══ -->
+  <script>
+    /* ── EmailJS ──
+       Reemplaza los valores de abajo con los de tu cuenta en emailjs.com:
+       1. Crea una cuenta en https://emailjs.com
+       2. Añade un servicio de email (Gmail, Outlook, etc.)
+       3. Crea un template con las variables: {{nombre}}, {{empresa}}, {{email}}, {{mensaje}}
+       4. Reemplaza YOUR_PUBLIC_KEY, YOUR_SERVICE_ID, YOUR_TEMPLATE_ID
+    */
+    emailjs.init('YOUR_PUBLIC_KEY');
+
+    /* ── Scroll reveal ── */
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* ── Form ── */
+    const form      = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const spinner   = document.getElementById('btnSpinner');
+    const btnIcon   = document.getElementById('btnIcon');
+    const btnLabel  = document.getElementById('btnLabel');
+    const successBox = document.getElementById('successBox');
+
+    const isValidEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+    function setFieldError(id, show) {
+      const input = document.getElementById('f-' + id);
+      const msg   = document.getElementById('err-' + id);
+      input.classList.toggle('has-error', show);
+      input.setAttribute('aria-invalid', show ? 'true' : 'false');
+      msg.classList.toggle('show', show);
+    }
+
+    function setLoading(on) {
+      submitBtn.disabled   = on;
+      spinner.style.display  = on ? 'block' : 'none';
+      btnIcon.style.display  = on ? 'none'  : 'inline-block';
+      btnLabel.textContent   = on ? 'Enviando…' : 'Enviar propuesta';
+    }
+
+    /* Clear errors on input */
+    ['nombre','email','mensaje'].forEach(id => {
+      document.getElementById('f-' + id).addEventListener('input', () => setFieldError(id, false));
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nombre  = document.getElementById('f-nombre').value.trim();
+      const email   = document.getElementById('f-email').value.trim();
+      const mensaje = document.getElementById('f-mensaje').value.trim();
+
+      setFieldError('nombre',  !nombre);
+      setFieldError('email',   !email || !isValidEmail(email));
+      setFieldError('mensaje', !mensaje);
+
+      if (!nombre || !email || !isValidEmail(email) || !mensaje) return;
+
+      setLoading(true);
+
+      try {
+        await emailjs.sendForm(
+          'YOUR_SERVICE_ID',   // ← tu Service ID de EmailJS
+          'YOUR_TEMPLATE_ID',  // ← tu Template ID de EmailJS
+          form
+        );
+        form.style.display = 'none';
+        successBox.classList.add('show');
+        successBox.focus();
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        btnLabel.textContent = 'Error al enviar. Intenta de nuevo.';
+        submitBtn.style.background = 'linear-gradient(135deg,#ef4444,#dc2626)';
+        setTimeout(() => {
+          btnLabel.textContent = 'Enviar propuesta';
+          submitBtn.style.background = '';
+          setLoading(false);
+        }, 3500);
+      }
+    });
+  </script>
+</body>
+</html>

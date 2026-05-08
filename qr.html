@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR — Camidevai × Papaolazo</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #050508;
+      --blue:   #3b82f6;
+      --purple: #8b5cf6;
+      --cyan:   #06b6d4;
+      --pink:   #ec4899;
+      --glass:  rgba(255,255,255,0.055);
+      --border: rgba(255,255,255,0.1);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%,   rgba(79,70,229,0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 10% 100%,  rgba(6,182,212,0.15) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 90% 100%,  rgba(139,92,246,0.15) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Grid */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 48px 40px 40px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+      animation: cardIn 0.7s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0)    scale(1);    }
+    }
+
+    /* Top glow line */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent);
+      border-radius: 100px;
+    }
+
+    /* Brand */
+    .brand {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 20px;
+    }
+
+    .headline {
+      font-size: clamp(22px, 6vw, 30px);
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .gradient {
+      background: linear-gradient(135deg, var(--blue), var(--purple), var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+
+    /* QR container */
+    .qr-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 48px rgba(99,102,241,0.35), 0 0 0 1px rgba(255,255,255,0.08);
+      margin-bottom: 28px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .qr-wrap:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 64px rgba(99,102,241,0.5), 0 0 0 1px rgba(255,255,255,0.1);
+    }
+    #qrcode { display: block; }
+    #qrcode canvas, #qrcode img { display: block; border-radius: 8px; }
+
+    /* Scan prompt */
+    .scan-prompt {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 28px;
+    }
+    .scan-icon {
+      width: 28px; height: 28px;
+      background: rgba(99,102,241,0.15);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+
+    /* URL chip */
+    .url-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 32px;
+      word-break: break-all;
+      text-align: center;
+    }
+    .url-chip .dot {
+      width: 6px; height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 5px #4ade80;
+    }
+
+    /* Divider */
+    .sep {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      margin: 0 0 24px;
+    }
+
+    /* Profiles */
+    .profiles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .mini-profile {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 14px 12px;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .mini-profile:hover { background: rgba(255,255,255,0.07); }
+    .mini-profile.cami:hover { border-color: rgba(59,130,246,0.3); }
+    .mini-profile.papa:hover { border-color: rgba(139,92,246,0.3); }
+    .mini-emoji { font-size: 22px; margin-bottom: 6px; display: block; }
+    .mini-name  { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+    .mini-desc  { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.45; }
+    .mini-name.cami-n {
+      background: linear-gradient(135deg, #60a5fa, #22d3ee);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .mini-name.papa-n {
+      background: linear-gradient(135deg, #a78bfa, #ec4899);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* Print button */
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      padding: 10px 24px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .print-btn:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+
+    @media print {
+      body { background: #fff; }
+      body::before, body::after { display: none; }
+      .card {
+        border: 1px solid #ddd;
+        box-shadow: none;
+        background: #fff;
+        color: #000;
+      }
+      .print-btn { display: none; }
+      .brand, .tagline, .scan-prompt, .mini-desc { color: #666; }
+      .url-chip { color: #444; border-color: #ddd; background: #f9f9f9; }
+      .url-chip .dot { background: #22c55e; }
+      .mini-profile { border-color: #eee; background: #fafafa; }
+      .sep { background: #eee; }
+      /* Print QR in black on white */
+      .qr-wrap { box-shadow: none; padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <div class="card" role="main">
+      <p class="brand" aria-hidden="true">✦ SCAN ME ✦</p>
+
+      <h1 class="headline">
+        Camidevai <span style="color:rgba(255,255,255,0.3)">×</span><br>
+        <span class="gradient">Papaolazo</span>
+      </h1>
+      <p class="tagline">Tecnología + Humor = Contenido Viral</p>
+
+      <!-- QR Code (se genera dinámicamente) -->
+      <div class="qr-wrap" role="img" aria-label="Código QR para acceder al perfil de los influencers">
+        <div id="qrcode"></div>
+      </div>
+
+      <div class="scan-prompt">
+        <div class="scan-icon" aria-hidden="true">📱</div>
+        <span>Escanea para conocernos</span>
+      </div>
+
+      <!-- URL que apunta el QR -->
+      <div class="url-chip">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="qrUrlDisplay">Tu URL aquí · edita el script</span>
+      </div>
+
+      <div class="sep" role="separator"></div>
+
+      <!-- Mini perfil de cada creador -->
+      <div class="profiles">
+        <a href="https://www.instagram.com/camidevai" target="_blank" rel="noopener noreferrer"
+           class="mini-profile cami" style="text-decoration:none;color:inherit"
+           aria-label="Instagram de camidevai">
+          <span class="mini-emoji" aria-hidden="true">🤖</span>
+          <div class="mini-name cami-n" style="-webkit-text-fill-color:transparent">@camidevai</div>
+          <div class="mini-desc">IA · Tech · Educación</div>
+        </a>
+        <a href="https://www.instagram.com/papaolazo" target="_blank" rel="noopener noreferrer"
+           class="mini-profile papa" style="text-decoration:none;color:inherit"
+           aria-label="Instagram de papaolazo">
+          <span class="mini-emoji" aria-hidden="true">😂</span>
+          <div class="mini-name papa-n" style="-webkit-text-fill-color:transparent">@papaolazo</div>
+          <div class="mini-desc">Humor · Sketches · Viral</div>
+        </a>
+      </div>
+
+      <button class="print-btn" onclick="window.print()" aria-label="Imprimir esta página con el código QR">
+        🖨️ Imprimir QR
+      </button>
+    </div>
+  </main>
+
+  <script>
+    /*
+      ── CONFIGURACIÓN ──────────────────────────────────────────────
+      Reemplaza LANDING_URL con la URL real donde esté desplegado index.html
+      Ejemplos:
+        https://camidevai-papaolazo.vercel.app
+        https://tudominio.com
+    */
+    const LANDING_URL = 'https://TU-DOMINIO-AQUI.vercel.app'; // ← cambia esto
+
+    /* Muestra la URL en el chip */
+    document.getElementById('qrUrlDisplay').textContent = LANDING_URL;
+
+    /* Genera el QR */
+    new QRCode(document.getElementById('qrcode'), {
+      text:        LANDING_URL,
+      width:       200,
+      height:      200,
+      colorDark:   '#000000',
+      colorLight:  '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H  // Máxima corrección de errores
+    });
+  </script>
+</body>
+</html>
