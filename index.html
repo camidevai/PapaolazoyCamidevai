@@ -730,6 +730,114 @@
     .footer-links a:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
     .footer-copy { font-size: 12.5px; color: var(--white30); }
 
+    /* ─── Modal ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      background: #0d0d16;
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      padding: 36px 28px 32px;
+      max-width: 360px;
+      width: 100%;
+      position: relative;
+      text-align: center;
+      transform: translateY(24px) scale(0.96);
+      transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    }
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      color: var(--white60);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      line-height: 1;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.12); color: #fff; transform: rotate(90deg); }
+    .modal-close:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+    .modal-avatar-wrap { position: relative; display: inline-block; margin-bottom: 16px; }
+    .modal-ring {
+      position: absolute; inset: -4px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+    }
+    .modal-ring.papa { background: linear-gradient(135deg, var(--purple), var(--pink)); }
+    .modal-ring::after {
+      content: ''; position: absolute; inset: 2px;
+      border-radius: 50%; background: #0d0d16;
+    }
+    .modal-avatar {
+      width: 96px; height: 96px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 38px; font-weight: 800;
+      position: relative; z-index: 1;
+    }
+    .modal-avatar.cami { background: linear-gradient(135deg, #1a3557, #0ea5e9); }
+    .modal-avatar.papa { background: linear-gradient(135deg, #2d1152, #7c3aed); }
+    .modal-handle { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .modal-bio {
+      font-size: 14px; color: var(--white60);
+      line-height: 1.65; margin-bottom: 18px;
+    }
+    .modal-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      justify-content: center; margin-bottom: 20px;
+    }
+    .modal-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+      margin: 0 0 20px;
+    }
+    .modal-focus {
+      font-size: 13px; color: var(--white60);
+      line-height: 1.6; margin-bottom: 22px;
+    }
+    .modal-focus strong { color: var(--white80); }
+    .modal-ig-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 28px; border-radius: 100px;
+      font-size: 14px; font-weight: 600;
+      text-decoration: none; letter-spacing: 0.1px;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .modal-ig-btn.cami {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #fff; box-shadow: 0 0 22px rgba(59,130,246,0.28);
+    }
+    .modal-ig-btn.cami:hover { transform: scale(1.05); box-shadow: 0 0 32px rgba(59,130,246,0.48); }
+    .modal-ig-btn.papa {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff; box-shadow: 0 0 22px rgba(139,92,246,0.28);
+    }
+    .modal-ig-btn.papa:hover { transform: scale(1.05); box-shadow: 0 0 32px rgba(139,92,246,0.48); }
+    .modal-ig-note { font-size: 11px; color: var(--white30); margin-top: 10px; }
+
     /* ─── Floating CTA ─── */
     .float-cta {
       position: fixed;
@@ -863,16 +971,15 @@
             <span class="tag tag-cyan">Tech</span>
             <span class="tag tag-blue">Educación</span>
           </div>
-          <a
-            href="https://www.instagram.com/camidevai"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onclick="openModal('cami')"
             class="ig-btn cami-ig"
-            aria-label="Ver perfil de camidevai en Instagram"
+            aria-label="Ver perfil de camidevai"
+            style="border:none;cursor:pointer;"
           >
             <i class="fab fa-instagram" aria-hidden="true"></i>
             Ver perfil
-          </a>
+          </button>
         </article>
 
         <!-- PAPAOLAZO -->
@@ -892,16 +999,15 @@
             <span class="tag tag-pink">Viral</span>
             <span class="tag tag-purple">Entretenimiento</span>
           </div>
-          <a
-            href="https://www.instagram.com/papaolazo"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onclick="openModal('papa')"
             class="ig-btn papa-ig"
-            aria-label="Ver perfil de papaolazo en Instagram"
+            aria-label="Ver perfil de papaolazo"
+            style="border:none;cursor:pointer;"
           >
             <i class="fab fa-instagram" aria-hidden="true"></i>
             Ver perfil
-          </a>
+          </button>
         </article>
       </div>
 
@@ -1069,6 +1175,76 @@
     <p class="footer-copy">© 2025 Camidevai × Papaolazo · Todos los derechos reservados</p>
   </footer>
 
+  <!-- ══ MODAL — CAMIDEVAI ══ -->
+  <div class="modal-overlay" id="modal-cami" role="dialog" aria-modal="true" aria-label="Perfil de Camidevai">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('cami')" aria-label="Cerrar">✕</button>
+
+      <div class="modal-avatar-wrap">
+        <div class="modal-ring"></div>
+        <div class="modal-avatar cami" aria-hidden="true">C</div>
+      </div>
+
+      <h3 class="modal-handle gradient-text-blue" style="-webkit-text-fill-color:transparent">@camidevai</h3>
+      <p class="modal-bio">Creadora de contenido sobre IA, tecnología y herramientas digitales virales. Educación futurista con estética premium.</p>
+
+      <div class="modal-tags">
+        <span class="tag tag-blue">Inteligencia Artificial</span>
+        <span class="tag tag-cyan">Tecnología</span>
+        <span class="tag tag-blue">Educación</span>
+        <span class="tag tag-cyan">Herramientas Virales</span>
+      </div>
+
+      <div class="modal-divider"></div>
+
+      <p class="modal-focus">
+        <strong>Contenido:</strong> tutoriales de IA, reviews de herramientas, tendencias digitales y productividad con tecnología de punta.
+      </p>
+
+      <a href="https://www.instagram.com/camidevai" target="_blank" rel="noopener noreferrer"
+         class="modal-ig-btn cami" aria-label="Abrir Instagram de camidevai en nueva pestaña">
+        <i class="fab fa-instagram" aria-hidden="true"></i>
+        Abrir en Instagram
+      </a>
+      <p class="modal-ig-note">Se abrirá en una nueva pestaña</p>
+    </div>
+  </div>
+
+  <!-- ══ MODAL — PAPAOLAZO ══ -->
+  <div class="modal-overlay" id="modal-papa" role="dialog" aria-modal="true" aria-label="Perfil de Papaolazo">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('papa')" aria-label="Cerrar">✕</button>
+
+      <div class="modal-avatar-wrap">
+        <div class="modal-ring papa"></div>
+        <div class="modal-avatar papa" aria-hidden="true">P</div>
+      </div>
+
+      <h3 class="modal-handle gradient-text-purple" style="-webkit-text-fill-color:transparent">@papaolazo</h3>
+      <p class="modal-bio">Creador de contenido de humor, sketches y entretenimiento viral. Conecta de forma auténtica con audiencias masivas.</p>
+
+      <div class="modal-tags">
+        <span class="tag tag-purple">Humor</span>
+        <span class="tag tag-pink">Sketches</span>
+        <span class="tag tag-purple">Entretenimiento</span>
+        <span class="tag tag-pink">Viral</span>
+      </div>
+
+      <div class="modal-divider"></div>
+
+      <p class="modal-focus">
+        <strong>Contenido:</strong> videos de humor cotidiano, sketches de situaciones reales, contenido cercano que genera engagement orgánico.
+      </p>
+
+      <a href="https://www.instagram.com/papaolazo" target="_blank" rel="noopener noreferrer"
+         class="modal-ig-btn papa" aria-label="Abrir Instagram de papaolazo en nueva pestaña">
+        <i class="fab fa-instagram" aria-hidden="true"></i>
+        Abrir en Instagram
+      </a>
+      <p class="modal-ig-note">Se abrirá en una nueva pestaña</p>
+    </div>
+  </div>
+
   <!-- ══ FLOATING CTA — WhatsApp ══ -->
   <a href="__WSP_URL_CAMI__" target="_blank" rel="noopener noreferrer"
      class="float-cta" aria-label="Escribir por WhatsApp">
@@ -1117,6 +1293,32 @@
       btnIcon.style.display  = on ? 'none'  : 'inline-block';
       btnLabel.textContent   = on ? 'Enviando…' : 'Enviar propuesta';
     }
+
+    /* ── Modales ── */
+    function openModal(id) {
+      const overlay = document.getElementById('modal-' + id);
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      overlay.querySelector('.modal-close').focus();
+    }
+    function closeModal(id) {
+      document.getElementById('modal-' + id).classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    // Cerrar al hacer click en el fondo oscuro
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal(overlay.id.replace('modal-', ''));
+      });
+    });
+    // Cerrar con Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay.open').forEach(o => {
+          closeModal(o.id.replace('modal-', ''));
+        });
+      }
+    });
 
     /* Clear errors on input */
     ['nombre','email','mensaje'].forEach(id => {
