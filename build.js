@@ -22,13 +22,20 @@ function loadDotEnv() {
 
 loadDotEnv();
 
-const required = ['EMAILJS_PUBLIC_KEY', 'EMAILJS_SERVICE_ID', 'EMAILJS_TEMPLATE_ID'];
-const missing  = required.filter(k => !process.env[k]);
+const required = [
+  'EMAILJS_PUBLIC_KEY', 'EMAILJS_SERVICE_ID', 'EMAILJS_TEMPLATE_ID',
+  'WSP_NUMBER_CAMI', 'WSP_NUMBER_PAOLO'
+];
+const missing = required.filter(k => !process.env[k]);
 if (missing.length) {
   console.error('ERROR: Faltan variables de entorno:', missing.join(', '));
   console.error('Crea un archivo .env o configura las variables en el dashboard de Netlify.');
   process.exit(1);
 }
+
+const WSP_MSG = encodeURIComponent('Hola! Vi su perfil en influencerstemuco.netlify.app y me gustaría proponerles una colaboración 🚀');
+const wspUrlCami  = `https://wa.me/${process.env.WSP_NUMBER_CAMI}?text=${WSP_MSG}`;
+const wspUrlPaolo = `https://wa.me/${process.env.WSP_NUMBER_PAOLO}?text=${WSP_MSG}`;
 
 // Crea carpeta dist/
 const dist = path.join(__dirname, 'dist');
@@ -39,13 +46,15 @@ let html = fs.readFileSync('index.html', 'utf8');
 html = html
   .replace("'YOUR_PUBLIC_KEY'",  `'${process.env.EMAILJS_PUBLIC_KEY}'`)
   .replace("'YOUR_SERVICE_ID'",  `'${process.env.EMAILJS_SERVICE_ID}'`)
-  .replace("'YOUR_TEMPLATE_ID'", `'${process.env.EMAILJS_TEMPLATE_ID}'`);
+  .replace("'YOUR_TEMPLATE_ID'", `'${process.env.EMAILJS_TEMPLATE_ID}'`)
+  .replace(/__WSP_URL_CAMI__/g,  wspUrlCami)
+  .replace(/__WSP_URL_PAOLO__/g, wspUrlPaolo);
 
 fs.writeFileSync(path.join(dist, 'index.html'), html);
 
-// Copia qr.html tal cual (no tiene credenciales)
+// Copia qr.html tal cual
 fs.copyFileSync('qr.html', path.join(dist, 'qr.html'));
 
 console.log('Build OK → dist/');
-console.log('  index.html  (EmailJS inyectado)');
+console.log('  index.html  (EmailJS + WhatsApp inyectados)');
 console.log('  qr.html');
