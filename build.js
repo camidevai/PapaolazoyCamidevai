@@ -1,8 +1,8 @@
 // Script de build: inyecta variables de entorno en el HTML antes del deploy
-const fs = require('fs');
+const fs   = require('fs');
 const path = require('path');
 
-// Lee .env local si existe (para desarrollo; en Netlify usa las env vars del dashboard)
+// ── .env local ──────────────────────────────────────────────────────────────
 function loadDotEnv() {
   try {
     const raw = fs.readFileSync('.env', 'utf8');
@@ -15,13 +15,11 @@ function loadDotEnv() {
       const val = trimmed.slice(eq + 1).trim().replace(/^["']|["']$/g, '');
       if (key && !process.env[key]) process.env[key] = val;
     });
-  } catch {
-    // No .env file — se usan las env vars del sistema (Netlify dashboard)
-  }
+  } catch { /* sin .env local */ }
 }
-
 loadDotEnv();
 
+// ── Variables requeridas ─────────────────────────────────────────────────────
 const required = [
   'EMAILJS_PUBLIC_KEY', 'EMAILJS_SERVICE_ID', 'EMAILJS_TEMPLATE_ID',
   'WSP_NUMBER_CAMI', 'WSP_NUMBER_PAOLO'
@@ -29,23 +27,30 @@ const required = [
 const missing = required.filter(k => !process.env[k]);
 if (missing.length) {
   console.error('ERROR: Faltan variables de entorno:', missing.join(', '));
-  console.error('Crea un archivo .env o configura las variables en el dashboard de Netlify.');
   process.exit(1);
 }
 
-/* Snapwidget es opcional — si no está configurado el modal muestra placeholder */
-const snapIdCami  = process.env.SNAP_ID_CAMI  || '';
-const snapIdPaolo = process.env.SNAP_ID_PAPA   || '';
-
-const WSP_MSG = encodeURIComponent('Hola! Vi su perfil en influencerstemuco.netlify.app y me gustaría proponerles una colaboración 🚀');
+const snapIdCami  = process.env.SNAP_ID_CAMI || '';
+const snapIdPaolo = process.env.SNAP_ID_PAPA || '';
+const WSP_MSG     = encodeURIComponent('Hola! Vi su perfil en influencerstemuco.netlify.app y me gustaría proponerles una colaboración 🚀');
 const wspUrlCami  = `https://wa.me/${process.env.WSP_NUMBER_CAMI}?text=${WSP_MSG}`;
 const wspUrlPaolo = `https://wa.me/${process.env.WSP_NUMBER_PAOLO}?text=${WSP_MSG}`;
 
-// Crea carpeta dist/
-const dist = path.join(__dirname, 'dist');
-if (!fs.existsSync(dist)) fs.mkdirSync(dist, { recursive: true });
+// ── Carpetas ─────────────────────────────────────────────────────────────────
+const dist    = path.join(__dirname, 'dist');
+const imgDist = path.join(dist, 'img');
+if (!fs.existsSync(dist))    fs.mkdirSync(dist, { recursive: true });
+if (!fs.existsSync(imgDist)) fs.mkdirSync(imgDist, { recursive: true });
 
-// Procesa index.html — reemplaza los placeholders con los valores reales
+// Copia imágenes estáticas de public/img/
+const imgSrc = path.join(__dirname, 'public', 'img');
+if (fs.existsSync(imgSrc)) {
+  fs.readdirSync(imgSrc).forEach(file => {
+    fs.copyFileSync(path.join(imgSrc, file), path.join(imgDist, file));
+  });
+}
+
+// ── HTML ─────────────────────────────────────────────────────────────────────
 let html = fs.readFileSync('index.html', 'utf8');
 html = html
   .replace("'YOUR_PUBLIC_KEY'",  `'${process.env.EMAILJS_PUBLIC_KEY}'`)
@@ -57,19 +62,7 @@ html = html
   .replace(/__SNAP_ID_PAPA__/g,  snapIdPaolo);
 
 fs.writeFileSync(path.join(dist, 'index.html'), html);
-
-// Copia qr.html tal cual
 fs.copyFileSync('qr.html', path.join(dist, 'qr.html'));
-
-// Copia imágenes de public/img/ → dist/img/
-const imgSrc  = path.join(__dirname, 'public', 'img');
-const imgDist = path.join(dist, 'img');
-if (fs.existsSync(imgSrc)) {
-  if (!fs.existsSync(imgDist)) fs.mkdirSync(imgDist, { recursive: true });
-  fs.readdirSync(imgSrc).forEach(file => {
-    fs.copyFileSync(path.join(imgSrc, file), path.join(imgDist, file));
-  });
-}
 
 console.log('Build OK → dist/');
 console.log('  index.html  (EmailJS + WhatsApp inyectados)');

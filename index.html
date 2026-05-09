@@ -341,6 +341,20 @@
     .vcard-bg.v4 { background: linear-gradient(160deg, #2a0a0a, #7f1d1d, #ef4444); }
     .vcard-bg.v5 { background: linear-gradient(160deg, #1a1a0a, #713f12, #f59e0b); }
     .vcard-bg.v6 { background: linear-gradient(160deg, #0a0a1a, #1e1b4b, #6366f1); }
+    .vcard-thumb {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      transition: transform 0.4s ease;
+      border-radius: inherit;
+    }
+    .vcard:hover .vcard-thumb { transform: scale(1.06); }
+    /* overlay oscuro encima de la foto para que el texto sea legible */
+    .vcard-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.15) 55%, transparent 100%);
+      border-radius: inherit;
+    }
     .vcard-play {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -55%);
@@ -568,6 +582,37 @@
     .modal-cta.p:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(168,85,247,0.5); }
     .modal-note { font-size: 11px; color: var(--w30); margin-top: 10px; }
 
+    /* ── Botón compartir WSP ── */
+    .share-wsp-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 12px 26px; border-radius: 100px;
+      background: rgba(37,211,102,0.1);
+      border: 1px solid rgba(37,211,102,0.3);
+      color: #4ade80; font-size: 14px; font-weight: 600;
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: background 0.25s, box-shadow 0.25s, transform 0.2s;
+      text-decoration: none;
+    }
+    .share-wsp-btn:hover {
+      background: rgba(37,211,102,0.18);
+      box-shadow: 0 6px 24px rgba(37,211,102,0.25);
+      transform: translateY(-2px);
+    }
+    /* Toast de confirmación */
+    .share-toast {
+      position: fixed; bottom: 90px; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(20,20,30,0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(37,211,102,0.3);
+      border-radius: 100px; padding: 10px 22px;
+      font-size: 13.5px; font-weight: 500; color: #4ade80;
+      white-space: nowrap; z-index: 300;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .share-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
     /* ══════════════════════════════ FLOAT ══════════════════════════════ */
     .float-cta {
       position: fixed; bottom: 22px; right: 22px;
@@ -679,6 +724,10 @@
           <a href="#combo" class="btn-ghost">
             Conoce más <i class="fas fa-arrow-down" aria-hidden="true" style="font-size:12px"></i>
           </a>
+          <button class="share-wsp-btn" onclick="shareByWsp()" aria-label="Compartir este perfil por WhatsApp">
+            <i class="fab fa-whatsapp" aria-hidden="true" style="font-size:16px"></i>
+            Compartir perfil
+          </button>
         </div>
       </div>
 
@@ -813,6 +862,8 @@
         <div class="videos-grid reveal d1">
           <a href="https://www.instagram.com/p/DXsquG8DT4F/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v1">
+              <img class="vcard-thumb" src="https://www.instagram.com/p/DXsquG8DT4F/media/?size=l" alt="" loading="lazy" onerror="this.remove()">
+              <div class="vcard-overlay"></div>
               <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
                 <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
@@ -822,6 +873,8 @@
           </a>
           <a href="https://www.instagram.com/p/DXYFG47jQcY/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v2">
+              <img class="vcard-thumb" src="https://www.instagram.com/p/DXYFG47jQcY/media/?size=l" alt="" loading="lazy" onerror="this.remove()">
+              <div class="vcard-overlay"></div>
               <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
                 <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
@@ -831,6 +884,8 @@
           </a>
           <a href="https://www.instagram.com/p/DXQYB4VjcX8/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v3">
+              <img class="vcard-thumb" src="https://www.instagram.com/p/DXQYB4VjcX8/media/?size=l" alt="" loading="lazy" onerror="this.remove()">
+              <div class="vcard-overlay"></div>
               <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
                 <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
@@ -840,6 +895,8 @@
           </a>
           <a href="https://www.instagram.com/p/DVmmc-YDZrW/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v4">
+              <img class="vcard-thumb" src="https://www.instagram.com/p/DVmmc-YDZrW/media/?size=l" alt="" loading="lazy" onerror="this.remove()">
+              <div class="vcard-overlay"></div>
               <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
                 <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
@@ -849,6 +906,8 @@
           </a>
           <a href="https://www.instagram.com/p/DXu3UIOgddo/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v5">
+              <img class="vcard-thumb" src="https://www.instagram.com/p/DXu3UIOgddo/media/?size=l" alt="" loading="lazy" onerror="this.remove()">
+              <div class="vcard-overlay"></div>
               <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
                 <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
@@ -858,6 +917,8 @@
           </a>
           <a href="https://www.instagram.com/p/DX-sNXKtSha/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v6">
+              <img class="vcard-thumb" src="https://www.instagram.com/p/DX-sNXKtSha/media/?size=l" alt="" loading="lazy" onerror="this.remove()">
+              <div class="vcard-overlay"></div>
               <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
                 <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
@@ -1049,6 +1110,11 @@
     </div>
   </div>
 
+  <!-- ══ SHARE TOAST ══ -->
+  <div class="share-toast" id="shareToast" role="status" aria-live="polite">
+    ✓ Abriendo WhatsApp…
+  </div>
+
   <!-- ══ FLOAT ══ -->
   <a href="__WSP_URL_CAMI__" target="_blank" rel="noopener noreferrer" class="float-cta" aria-label="WhatsApp">
     <span class="float-tooltip" aria-hidden="true">WhatsApp</span>
@@ -1058,6 +1124,20 @@
   <!-- ══ SCRIPTS ══ -->
   <script>
     emailjs.init('YOUR_PUBLIC_KEY');
+
+    /* Compartir por WhatsApp */
+    function shareByWsp() {
+      const msg = encodeURIComponent(
+        '¡Mira estos chicos! Hacen contenido viral para marcas y locales en Temuco 🔥\n' +
+        'Camidevai (IA & Tech) + Papaolazo (Humor & Entretenimiento)\n' +
+        'Podríamos ver la posibilidad de contratarlos para nuestra marca 👀\n' +
+        '➡️ influencerstemuco.netlify.app'
+      );
+      window.open('https://wa.me/?text=' + msg, '_blank');
+      const toast = document.getElementById('shareToast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
 
     /* Scroll reveal */
     const obs = new IntersectionObserver(
