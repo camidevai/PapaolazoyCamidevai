@@ -283,6 +283,29 @@
     }
     .hcard-btn.ig:hover { background: var(--w10); color: var(--white); }
 
+    /* ─── CTA strip entre secciones ─── */
+    .cta-strip {
+      padding: 44px 32px;
+      display: flex; flex-direction: column;
+      align-items: center; text-align: center; gap: 14px;
+      position: relative; overflow: hidden;
+    }
+    .cta-strip::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 70% 100% at 50% 50%, rgba(99,102,241,0.07) 0%, transparent 70%);
+    }
+    .cta-strip-title {
+      font-size: clamp(18px, 3vw, 26px); font-weight: 800;
+      letter-spacing: -0.8px; line-height: 1.15;
+      position: relative; max-width: 480px;
+    }
+    .cta-strip p {
+      font-size: 14px; color: var(--w60);
+      line-height: 1.6; position: relative; max-width: 380px;
+    }
+    .cta-strip .btn-primary { position: relative; }
+
     /* ══════════════════════════════ COMBO ══════════════════════════════ */
     .combo-section {
       padding: 100px 32px;
@@ -746,16 +769,17 @@
           </li>
         </ul>
         <div class="hero-btns">
-          <a href="#videos" class="btn-primary">
-            <i class="fas fa-play" aria-hidden="true"></i>
-            Ver colaboraciones
+          <a href="#contacto" class="btn-primary">
+            <i class="fas fa-handshake" aria-hidden="true"></i>
+            Trabajemos juntos
           </a>
-          <a href="#combo" class="btn-ghost">
-            Conoce más <i class="fas fa-arrow-down" aria-hidden="true" style="font-size:12px"></i>
+          <a href="#videos" class="btn-ghost">
+            <i class="fas fa-play" aria-hidden="true" style="font-size:11px"></i>
+            Ver colaboraciones
           </a>
           <button class="share-wsp-btn" onclick="shareByWsp()" aria-label="Compartir este perfil por WhatsApp">
             <i class="fab fa-whatsapp" aria-hidden="true" style="font-size:16px"></i>
-            Compartir perfil
+            Compartir
           </button>
         </div>
       </div>
@@ -877,6 +901,16 @@
     </div>
   </section>
 
+  <!-- CTA strip 1 — después del combo -->
+  <div class="cta-strip">
+    <p class="cta-strip-title">¿Tu marca necesita visibilidad real?</p>
+    <p>Llevamos tu negocio a más de 270K personas con contenido que entretiene y convierte.</p>
+    <a href="#contacto" class="btn-primary">
+      <i class="fas fa-handshake" aria-hidden="true"></i>
+      Trabajemos juntos
+    </a>
+  </div>
+
   <div class="hr" role="separator"></div>
 
   <!-- ══ VIDEOS ══ -->
@@ -960,6 +994,16 @@
     </div>
   </section>
 
+  <!-- CTA strip 2 — después de videos -->
+  <div class="cta-strip" style="background:var(--bg2)">
+    <p class="cta-strip-title">¿Quieres que <span class="g-main" style="-webkit-text-fill-color:transparent">tu local</span> sea el próximo?</p>
+    <p>Estas son colaboraciones reales — tu negocio puede ser el siguiente en llegar a miles de personas.</p>
+    <a href="#contacto" class="btn-primary">
+      <i class="fas fa-handshake" aria-hidden="true"></i>
+      Trabajemos juntos
+    </a>
+  </div>
+
   <div class="hr" role="separator"></div>
 
   <!-- ══ IMPACTO ══ -->
@@ -991,6 +1035,15 @@
       </div>
     </div>
   </section>
+
+  <!-- CTA strip 3 — después de impacto, antes del formulario -->
+  <div class="cta-strip">
+    <p class="cta-strip-title">+30M vistas generadas.<br><span class="g-main" style="-webkit-text-fill-color:transparent">Tu marca puede ser la siguiente.</span></p>
+    <a href="#contacto" class="btn-primary" style="font-size:16px;padding:15px 36px;">
+      <i class="fas fa-handshake" aria-hidden="true"></i>
+      Trabajemos juntos
+    </a>
+  </div>
 
   <div class="hr" role="separator"></div>
 
