@@ -1009,7 +1009,7 @@
               <div class="form-group">
                 <label class="form-lbl" for="f-nombre">Nombre *</label>
                 <input class="form-ctrl" id="f-nombre" name="nombre" type="text" placeholder="Tu nombre" required autocomplete="name" aria-describedby="err-nombre" aria-required="true">
-                <span class="err-msg" id="err-nombre" role="alert">Ingresa tu nombre.</span>
+                <span class="err-msg" id="err-nombre" role="alert">El nombre es obligatorio.</span>
               </div>
               <div class="form-group">
                 <label class="form-lbl" for="f-empresa">Empresa</label>
@@ -1019,7 +1019,7 @@
             <div class="form-group">
               <label class="form-lbl" for="f-email">Email *</label>
               <input class="form-ctrl" id="f-email" name="email" type="email" placeholder="tu@empresa.com" required autocomplete="email" aria-describedby="err-email" aria-required="true">
-              <span class="err-msg" id="err-email" role="alert">Ingresa un email válido.</span>
+              <span class="err-msg" id="err-email" role="alert">Ingresa un email válido (ej: nombre@empresa.com).</span>
             </div>
             <div class="form-group">
               <label class="form-lbl" for="f-mensaje">Mensaje *</label>
@@ -1045,7 +1045,10 @@
                 </button>
               </div>
               <textarea class="form-ctrl" id="f-mensaje" name="mensaje" placeholder="Cuéntanos sobre tu proyecto o campaña…" required aria-describedby="err-mensaje" aria-required="true"></textarea>
-              <span class="err-msg" id="err-mensaje" role="alert">Escribe tu mensaje.</span>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+                <span class="err-msg" id="err-mensaje" role="alert">El mensaje debe tener al menos 50 caracteres.</span>
+                <span id="msg-counter" style="font-size:11px;color:var(--w30)">0 / 50</span>
+              </div>
             </div>
             <button type="submit" class="submit-btn" id="submitBtn">
               <span class="spinner" id="btnSpinner" aria-hidden="true"></span>
@@ -1196,7 +1199,7 @@
         '¡Mira estos chicos! Hacen contenido viral para marcas y locales en Temuco 🔥\n' +
         'Camidevai (IA & Tech) + Papaolazo (Humor & Entretenimiento)\n' +
         'Podríamos ver la posibilidad de contratarlos para nuestra marca 👀\n' +
-        '➡️ influencerstemuco.netlify.app'
+        '➡️ https://influencerstemuco.netlify.app/'
       );
       window.open('https://wa.me/?text=' + msg, '_blank');
       const toast = document.getElementById('shareToast');
@@ -1254,20 +1257,32 @@
       btnLabel.textContent  = on ? 'Enviando…' : 'Enviar propuesta';
     }
 
-    ['nombre','email','mensaje'].forEach(id => {
+    ['nombre','email'].forEach(id => {
       document.getElementById('f-' + id).addEventListener('input', () => setFieldError(id, false));
+    });
+
+    /* Contador de caracteres del mensaje */
+    const msgEl      = document.getElementById('f-mensaje');
+    const counterEl  = document.getElementById('msg-counter');
+    msgEl.addEventListener('input', () => {
+      const len = msgEl.value.trim().length;
+      counterEl.textContent = `${len} / 50`;
+      counterEl.style.color = len >= 50 ? 'var(--green)' : 'var(--w30)';
+      if (len >= 50) setFieldError('mensaje', false);
     });
 
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const nombre  = document.getElementById('f-nombre').value.trim();
+      const empresa = document.getElementById('f-empresa').value.trim();
       const email   = document.getElementById('f-email').value.trim();
       const mensaje = document.getElementById('f-mensaje').value.trim();
 
       setFieldError('nombre',  !nombre);
       setFieldError('email',   !email || !isValidEmail(email));
-      setFieldError('mensaje', !mensaje);
-      if (!nombre || !email || !isValidEmail(email) || !mensaje) return;
+      setFieldError('mensaje', mensaje.length < 50);
+
+      if (!nombre || !email || !isValidEmail(email) || mensaje.length < 50) return;
 
       setLoading(true);
       try {
