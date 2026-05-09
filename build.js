@@ -42,13 +42,18 @@ const imgDist = path.join(dist, 'img');
 if (!fs.existsSync(dist))    fs.mkdirSync(dist, { recursive: true });
 if (!fs.existsSync(imgDist)) fs.mkdirSync(imgDist, { recursive: true });
 
-// Copia imágenes estáticas de public/img/
-const imgSrc = path.join(__dirname, 'public', 'img');
-if (fs.existsSync(imgSrc)) {
-  fs.readdirSync(imgSrc).forEach(file => {
-    fs.copyFileSync(path.join(imgSrc, file), path.join(imgDist, file));
+// Copia imágenes estáticas de public/img/ (recursivo)
+function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return;
+  if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+  fs.readdirSync(src).forEach(file => {
+    const s = path.join(src, file);
+    const d = path.join(dest, file);
+    if (fs.statSync(s).isDirectory()) copyDir(s, d);
+    else fs.copyFileSync(s, d);
   });
 }
+copyDir(path.join(__dirname, 'public', 'img'), imgDist);
 
 // ── HTML ─────────────────────────────────────────────────────────────────────
 let html = fs.readFileSync('index.html', 'utf8');
