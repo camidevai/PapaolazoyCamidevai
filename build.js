@@ -61,6 +61,17 @@ fs.writeFileSync(path.join(dist, 'index.html'), html);
 // Copia qr.html tal cual
 fs.copyFileSync('qr.html', path.join(dist, 'qr.html'));
 
+// Copia imágenes de public/img/ → dist/img/
+const imgSrc  = path.join(__dirname, 'public', 'img');
+const imgDist = path.join(dist, 'img');
+if (fs.existsSync(imgSrc)) {
+  if (!fs.existsSync(imgDist)) fs.mkdirSync(imgDist, { recursive: true });
+  fs.readdirSync(imgSrc).forEach(file => {
+    fs.copyFileSync(path.join(imgSrc, file), path.join(imgDist, file));
+  });
+}
+
 console.log('Build OK → dist/');
 console.log('  index.html  (EmailJS + WhatsApp inyectados)');
 console.log('  qr.html');
+console.log('  img/  (fotos de perfil)');
