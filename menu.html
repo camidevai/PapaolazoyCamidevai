@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Servicios — Camidevai × Papaolazo</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #050508;
+      --bg2:    #0a0a12;
+      --blue:   #3b82f6;
+      --purple: #a855f7;
+      --cyan:   #06b6d4;
+      --pink:   #ec4899;
+      --green:  #4ade80;
+      --gold:   #f59e0b;
+      --white:  #ffffff;
+      --w60:    rgba(255,255,255,0.6);
+      --w30:    rgba(255,255,255,0.3);
+      --w10:    rgba(255,255,255,0.1);
+      --w05:    rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.09);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 100px;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #0a1628 0%, #1a0a30 50%, #0a1628 100%);
+      padding: 32px 20px 28px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .header-glow {
+      position: absolute;
+      width: 300px; height: 300px; border-radius: 50%;
+      filter: blur(80px); pointer-events: none;
+      top: -80px; left: 50%; transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%);
+    }
+    .header-content { position: relative; z-index: 1; }
+
+    /* Avatares en el header */
+    .header-avatars {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; margin-bottom: 16px;
+    }
+    .h-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      overflow: hidden; border: 2px solid var(--bg);
+      position: relative;
+    }
+    .h-avatar:first-child { z-index: 2; margin-right: -10px; }
+    .h-avatar:last-child  { z-index: 1; margin-left: -10px; }
+    .h-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .h-avatar-ring-1 {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      padding: 2px; border-radius: 50%;
+    }
+    .h-avatar-ring-2 {
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      padding: 2px; border-radius: 50%;
+    }
+    .h-avatar-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .header-x {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--bg2); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: var(--w60);
+      z-index: 3; position: relative; flex-shrink: 0;
+    }
+
+    .header-brand {
+      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+    .g-blue   { background: linear-gradient(135deg, #60a5fa, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .g-purple { background: linear-gradient(135deg, #c084fc, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .header-sub { font-size: 13px; color: var(--w60); margin-bottom: 14px; }
+
+    .header-stats {
+      display: flex; justify-content: center; gap: 20px;
+    }
+    .h-stat { text-align: center; }
+    .h-stat-num { font-size: 16px; font-weight: 800; }
+    .h-stat-lbl { font-size: 10px; color: var(--w30); margin-top: 1px; }
+
+    /* ── Promo badge ── */
+    .promo-banner {
+      background: linear-gradient(135deg, rgba(245,158,11,0.15), rgba(245,158,11,0.08));
+      border: 1px solid rgba(245,158,11,0.3);
+      margin: 16px 16px 0;
+      border-radius: 14px; padding: 12px 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .promo-icon { font-size: 22px; flex-shrink: 0; }
+    .promo-text strong { font-size: 13px; font-weight: 700; color: #fcd34d; display: block; }
+    .promo-text span   { font-size: 12px; color: rgba(252,211,77,0.7); }
+
+    /* ── Sección ── */
+    .section-title {
+      font-size: 11px; font-weight: 600; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--w30);
+      padding: 24px 20px 12px;
+    }
+
+    /* ── Tarjetas de paquete ── */
+    .packages { padding: 0 16px; display: flex; flex-direction: column; gap: 12px; }
+
+    .pkg {
+      background: var(--w05);
+      border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pkg:active { transform: scale(0.98); }
+
+    .pkg-accent {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .acc-bronze  { background: linear-gradient(90deg, #92400e, #d97706, #f59e0b); }
+    .acc-silver  { background: linear-gradient(90deg, #374151, #6b7280, #9ca3af); }
+    .acc-gold    { background: linear-gradient(90deg, var(--blue), var(--purple), var(--cyan)); }
+    .acc-launch  { background: linear-gradient(90deg, var(--purple), var(--pink), var(--gold)); }
+
+    .pkg-inner { padding: 18px 18px 16px; }
+
+    .pkg-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 12px;
+      margin-bottom: 12px;
+    }
+    .pkg-left { flex: 1; min-width: 0; }
+    .pkg-badge {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+      padding: 3px 10px; border-radius: 100px; display: inline-block;
+      margin-bottom: 6px;
+    }
+    .badge-bronze  { background: rgba(217,119,6,0.15);  color: #fbbf24; border: 1px solid rgba(217,119,6,0.3); }
+    .badge-silver  { background: rgba(107,114,128,0.15); color: #d1d5db; border: 1px solid rgba(107,114,128,0.3); }
+    .badge-gold    { background: rgba(99,102,241,0.15);  color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
+    .badge-launch  { background: rgba(236,72,153,0.15);  color: #f9a8d4; border: 1px solid rgba(236,72,153,0.3); }
+
+    .pkg-name { font-size: 17px; font-weight: 800; letter-spacing: -0.4px; }
+
+    .pkg-price { text-align: right; flex-shrink: 0; }
+    .price-from { font-size: 10px; color: var(--w30); display: block; text-align: right; }
+    .price-num  {
+      font-size: 22px; font-weight: 900; letter-spacing: -1px;
+      line-height: 1; white-space: nowrap;
+    }
+    .price-period { font-size: 10px; color: var(--w30); display: block; text-align: right; }
+
+    .pkg-items { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+    .pkg-items li {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--w60);
+    }
+    .pkg-items li .ic {
+      font-size: 11px; color: var(--green);
+      width: 16px; text-align: center; flex-shrink: 0;
+    }
+
+    .pkg-cta {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      width: 100%; padding: 12px;
+      border-radius: 100px; font-size: 13.5px; font-weight: 700;
+      border: none; cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: opacity 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+    .pkg-cta:active { transform: scale(0.97); opacity: 0.8; }
+    .cta-bronze { background: linear-gradient(135deg, #92400e, #d97706); color: #fff; }
+    .cta-silver { background: linear-gradient(135deg, #374151, #6b7280); color: #fff; }
+    .cta-gold   { background: linear-gradient(135deg, var(--blue), var(--purple)); color: #fff; box-shadow: 0 0 20px rgba(99,102,241,0.3); }
+    .cta-launch { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; box-shadow: 0 0 20px rgba(236,72,153,0.3); }
+
+    /* Popular badge */
+    .popular-tag {
+      position: absolute; top: 14px; right: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 100px; letter-spacing: 0.3px;
+    }
+
+    /* ── Garantía ── */
+    .guarantee {
+      margin: 20px 16px 0;
+      background: rgba(74,222,128,0.06);
+      border: 1px solid rgba(74,222,128,0.15);
+      border-radius: 16px; padding: 16px;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .guarantee-icon { font-size: 24px; flex-shrink: 0; }
+    .guarantee-text strong { font-size: 13.5px; font-weight: 700; color: var(--green); display: block; margin-bottom: 3px; }
+    .guarantee-text span   { font-size: 12px; color: var(--w60); line-height: 1.5; }
+
+    /* ── FAQ rápido ── */
+    .faqs { padding: 0 16px; display: flex; flex-direction: column; gap: 8px; }
+    .faq {
+      background: var(--w05); border: 1px solid var(--border);
+      border-radius: 14px; padding: 14px 16px;
+    }
+    .faq-q { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .faq-a { font-size: 12.5px; color: var(--w60); line-height: 1.55; }
+
+    /* ── Bottom CTA fijo ── */
+    .bottom-cta {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      padding: 12px 16px 20px;
+      background: linear-gradient(to top, rgba(5,5,8,0.98) 60%, transparent);
+      z-index: 50;
+    }
+    .bottom-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 15px;
+      border-radius: 100px; font-size: 15px; font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: #fff; border: none; cursor: pointer;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.4);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .bottom-btn:active { transform: scale(0.97); }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="header-glow" aria-hidden="true"></div>
+    <div class="header-content">
+      <div class="header-avatars">
+        <div class="h-avatar-ring-1">
+          <div class="h-avatar-inner">
+            <img src="img/camidevai.jpg" alt="Camidevai">
+          </div>
+        </div>
+        <div class="header-x" aria-hidden="true">×</div>
+        <div class="h-avatar-ring-2">
+          <div class="h-avatar-inner">
+            <img src="img/papaolazo.jpg" alt="Papaolazo">
+          </div>
+        </div>
+      </div>
+
+      <div class="header-brand">
+        <span class="g-blue" style="-webkit-text-fill-color:transparent">camidevai</span>
+        <span style="color:rgba(255,255,255,0.3);margin:0 4px">×</span>
+        <span class="g-purple" style="-webkit-text-fill-color:transparent">papaolazo</span>
+      </div>
+      <div class="header-sub">Creadores de contenido · Temuco</div>
+
+      <div class="header-stats">
+        <div class="h-stat">
+          <div class="h-stat-num g-blue" style="-webkit-text-fill-color:transparent">267K</div>
+          <div class="h-stat-lbl">Seguidores cami</div>
+        </div>
+        <div class="h-stat">
+          <div class="h-stat-num" style="color:rgba(255,255,255,0.2)">·</div>
+        </div>
+        <div class="h-stat">
+          <div class="h-stat-num g-purple" style="-webkit-text-fill-color:transparent">4K</div>
+          <div class="h-stat-lbl">Seguidores papa</div>
+        </div>
+        <div class="h-stat">
+          <div class="h-stat-num" style="color:rgba(255,255,255,0.2)">·</div>
+        </div>
+        <div class="h-stat">
+          <div class="h-stat-num" style="background:linear-gradient(135deg,#22d3ee,#a855f7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">+30M</div>
+          <div class="h-stat-lbl">Vistas totales</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── PROMO BANNER ── -->
+  <div class="promo-banner" role="note">
+    <div class="promo-icon">🎉</div>
+    <div class="promo-text">
+      <strong>Precio especial de lanzamiento</strong>
+      <span>Primeros 10 locales — 30% de descuento en cualquier paquete</span>
+    </div>
+  </div>
+
+  <!-- ── PAQUETES ── -->
+  <div class="section-title">Nuestros paquetes</div>
+  <div class="packages">
+
+    <!-- Mención básica -->
+    <div class="pkg">
+      <div class="pkg-accent acc-bronze"></div>
+      <div class="pkg-inner">
+        <div class="pkg-top">
+          <div class="pkg-left">
+            <span class="pkg-badge badge-bronze">🥉 Básico</span>
+            <div class="pkg-name">Mención de historia</div>
+          </div>
+          <div class="pkg-price">
+            <span class="price-from">desde</span>
+            <span class="price-num" style="background:linear-gradient(135deg,#d97706,#f59e0b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">$15.000</span>
+            <span class="price-period">por historia</span>
+          </div>
+        </div>
+        <ul class="pkg-items">
+          <li><span class="ic"><i class="fas fa-check"></i></span> 1 historia en Instagram con tag de tu local</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Mención de tu nombre y ubicación</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Entrega en 48 horas</li>
+          <li><span class="ic" style="color:rgba(255,255,255,0.2)"><i class="fas fa-times"></i></span> <span style="color:rgba(255,255,255,0.3)">Sin video ni post</span></li>
+        </ul>
+        <a href="__WSP_MENU_CAMI__" class="pkg-cta cta-bronze">
+          <i class="fab fa-whatsapp"></i> Me interesa este
+        </a>
+      </div>
+    </div>
+
+    <!-- Post de colaboración -->
+    <div class="pkg">
+      <div class="pkg-accent acc-silver"></div>
+      <div class="pkg-inner">
+        <div class="pkg-top">
+          <div class="pkg-left">
+            <span class="pkg-badge badge-silver">🥈 Estándar</span>
+            <div class="pkg-name">Post de colaboración</div>
+          </div>
+          <div class="pkg-price">
+            <span class="price-from">desde</span>
+            <span class="price-num" style="color:#e5e7eb">$40.000</span>
+            <span class="price-period">por campaña</span>
+          </div>
+        </div>
+        <ul class="pkg-items">
+          <li><span class="ic"><i class="fas fa-check"></i></span> 1 post en el feed de Instagram</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> 3 historias con swipe up a tu perfil</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Foto o video corto de tu producto</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Caption con hashtags optimizados</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Entrega en 72 horas</li>
+        </ul>
+        <a href="__WSP_MENU_CAMI__" class="pkg-cta cta-silver">
+          <i class="fab fa-whatsapp"></i> Me interesa este
+        </a>
+      </div>
+    </div>
+
+    <!-- Video completo — POPULAR -->
+    <div class="pkg" style="border-color: rgba(99,102,241,0.35); box-shadow: 0 0 32px rgba(99,102,241,0.12);">
+      <div class="pkg-accent acc-gold"></div>
+      <div class="popular-tag">⭐ Más popular</div>
+      <div class="pkg-inner">
+        <div class="pkg-top">
+          <div class="pkg-left">
+            <span class="pkg-badge badge-gold">🥇 Premium</span>
+            <div class="pkg-name">Video completo</div>
+          </div>
+          <div class="pkg-price">
+            <span class="price-from">desde</span>
+            <span class="price-num" style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">$90.000</span>
+            <span class="price-period">por campaña</span>
+          </div>
+        </div>
+        <ul class="pkg-items">
+          <li><span class="ic"><i class="fas fa-check"></i></span> Video de 30–60 seg dedicado a tu local</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> 1 post + 5 historias</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Guión y producción incluidos</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Formato Reel optimizado para viral</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Humor + Tech: camidevai & papaolazo juntos</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Entrega en 5 días hábiles</li>
+        </ul>
+        <a href="__WSP_MENU_CAMI__" class="pkg-cta cta-gold">
+          <i class="fab fa-whatsapp"></i> Me interesa este
+        </a>
+      </div>
+    </div>
+
+    <!-- Pack lanzamiento -->
+    <div class="pkg">
+      <div class="pkg-accent acc-launch"></div>
+      <div class="pkg-inner">
+        <div class="pkg-top">
+          <div class="pkg-left">
+            <span class="pkg-badge badge-launch">🚀 Pack total</span>
+            <div class="pkg-name">Campaña de lanzamiento</div>
+          </div>
+          <div class="pkg-price">
+            <span class="price-from">desde</span>
+            <span class="price-num" style="background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">$180.000</span>
+            <span class="price-period">por mes</span>
+          </div>
+        </div>
+        <ul class="pkg-items">
+          <li><span class="ic"><i class="fas fa-check"></i></span> 1 video completo + 1 post</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> 10 historias distribuidas en 1 mes</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Estrategia de contenido personalizada</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> 1 visita presencial a tu local</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Reporte de alcance e impresiones</li>
+          <li><span class="ic"><i class="fas fa-check"></i></span> Prioridad de atención</li>
+        </ul>
+        <a href="__WSP_MENU_CAMI__" class="pkg-cta cta-launch">
+          <i class="fab fa-whatsapp"></i> Me interesa este
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── GARANTÍA ── -->
+  <div class="guarantee">
+    <div class="guarantee-icon">🛡️</div>
+    <div class="guarantee-text">
+      <strong>Sin riesgo para tu local</strong>
+      <span>Primero ves el contenido terminado. Si no te convence, lo ajustamos sin costo adicional.</span>
+    </div>
+  </div>
+
+  <!-- ── PREGUNTAS FRECUENTES ── -->
+  <div class="section-title">Preguntas frecuentes</div>
+  <div class="faqs">
+    <div class="faq">
+      <div class="faq-q">¿En cuánto tiempo se publica?</div>
+      <div class="faq-a">Dependiendo del paquete, entre 48 horas (historias) y 5 días hábiles (videos completos).</div>
+    </div>
+    <div class="faq">
+      <div class="faq-q">¿Cómo se paga?</div>
+      <div class="faq-a">50% al inicio y 50% al entregar el contenido terminado. Transferencia o efectivo.</div>
+    </div>
+    <div class="faq">
+      <div class="faq-q">¿Pueden venir a mi local?</div>
+      <div class="faq-a">Sí, incluido en Pack Premium y Total. En los demás paquetes, tú nos envías fotos o grabamos por coordinación.</div>
+    </div>
+    <div class="faq">
+      <div class="faq-q">¿Qué pasa si no me gustan los resultados?</div>
+      <div class="faq-a">Te revisamos el contenido antes de publicar. Hacemos hasta 2 revisiones sin costo.</div>
+    </div>
+  </div>
+
+  <!-- ── BOTTOM CTA FIJO ── -->
+  <div class="bottom-cta">
+    <a href="__WSP_MENU_CAMI__" class="bottom-btn">
+      <i class="fab fa-whatsapp" style="font-size:20px"></i>
+      Hablar por WhatsApp
+    </a>
+  </div>
+
+  <script>
+    // Abre WhatsApp con mensaje precargado según paquete
+    document.querySelectorAll('.pkg-cta, .bottom-btn').forEach(btn => {
+      const pkg = btn.closest('.pkg');
+      const pkgName = pkg ? pkg.querySelector('.pkg-name')?.textContent : 'Pack Total';
+      const href = btn.getAttribute('href');
+      if (href && href.startsWith('__')) {
+        // Placeholder no reemplazado — no hace nada
+        btn.addEventListener('click', e => e.preventDefault());
+      }
+    });
+  </script>
+</body>
+</html>

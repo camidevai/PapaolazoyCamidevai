@@ -32,9 +32,11 @@ if (missing.length) {
 
 const snapIdCami  = process.env.SNAP_ID_CAMI || '';
 const snapIdPaolo = process.env.SNAP_ID_PAPA || '';
-const WSP_MSG     = encodeURIComponent('Hola! Vi su perfil en influencerstemuco.netlify.app y me gustaría proponerles una colaboración 🚀');
-const wspUrlCami  = `https://wa.me/${process.env.WSP_NUMBER_CAMI}?text=${WSP_MSG}`;
-const wspUrlPaolo = `https://wa.me/${process.env.WSP_NUMBER_PAOLO}?text=${WSP_MSG}`;
+const WSP_MSG      = encodeURIComponent('Hola! Vi su perfil en influencerstemuco.netlify.app y me gustaría proponerles una colaboración 🚀');
+const WSP_MENU_MSG = encodeURIComponent('Hola Camidevai! Vi su menú de servicios y me interesa una colaboración para mi local 🙌 ¿Podemos conversar?');
+const wspUrlCami   = `https://wa.me/${process.env.WSP_NUMBER_CAMI}?text=${WSP_MSG}`;
+const wspUrlPaolo  = `https://wa.me/${process.env.WSP_NUMBER_PAOLO}?text=${WSP_MSG}`;
+const wspMenuCami  = `https://wa.me/${process.env.WSP_NUMBER_CAMI}?text=${WSP_MENU_MSG}`;
 
 // ── Carpetas ─────────────────────────────────────────────────────────────────
 const dist    = path.join(__dirname, 'dist');
@@ -68,6 +70,11 @@ html = html
 
 fs.writeFileSync(path.join(dist, 'index.html'), html);
 fs.copyFileSync('qr.html', path.join(dist, 'qr.html'));
+
+// Procesa menu.html
+let menuHtml = fs.readFileSync('menu.html', 'utf8');
+menuHtml = menuHtml.replace(/__WSP_MENU_CAMI__/g, wspMenuCami);
+fs.writeFileSync(path.join(dist, 'menu.html'), menuHtml);
 
 console.log('Build OK → dist/');
 console.log('  index.html  (EmailJS + WhatsApp inyectados)');
