@@ -322,7 +322,7 @@
     .section-header p { font-size: 15px; color: var(--w60); margin-top: 10px; }
 
     .videos-grid {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px;
     }
     .vcard {
       border-radius: var(--r); overflow: hidden;
@@ -340,6 +340,7 @@
     .vcard-bg.v3 { background: linear-gradient(160deg, #0a1f1a, #065f46, #10b981); }
     .vcard-bg.v4 { background: linear-gradient(160deg, #2a0a0a, #7f1d1d, #ef4444); }
     .vcard-bg.v5 { background: linear-gradient(160deg, #1a1a0a, #713f12, #f59e0b); }
+    .vcard-bg.v6 { background: linear-gradient(160deg, #0a0a1a, #1e1b4b, #6366f1); }
     .vcard-play {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -55%);
@@ -591,14 +592,15 @@
     @keyframes ctaFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
 
     /* ══════════════════════════════ RESPONSIVE ══════════════════════════════ */
+    @media (max-width: 1100px) {
+      .videos-grid { grid-template-columns: repeat(3, 1fr); }
+    }
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; gap: 48px; }
       .hero-cards { flex-direction: row; }
       .hcard { flex: 1; }
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
       .videos-grid { grid-template-columns: repeat(3, 1fr); }
-      .videos-grid .vcard:nth-child(4),
-      .videos-grid .vcard:nth-child(5) { display: none; }
     }
     @media (max-width: 640px) {
       .hero { padding: 100px 20px 60px; }
@@ -606,7 +608,6 @@
       .combo-grid { grid-template-columns: 1fr; }
       .combo-plus { font-size: 28px; text-align: center; }
       .videos-grid { grid-template-columns: repeat(2, 1fr); }
-      .videos-grid .vcard:nth-child(5) { display: none; }
       .form-row { grid-template-columns: 1fr; }
       .wsp-row { grid-template-columns: 1fr; }
       .combo-section, .impact-section { padding: 60px 20px; }
@@ -614,7 +615,7 @@
     }
     @media (max-width: 420px) {
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
-      .videos-grid { grid-template-columns: 1fr 1fr; }
+      .videos-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -806,55 +807,64 @@
       <div class="videos-inner">
         <div class="section-header reveal">
           <div class="s-label">✦ Nuestros Videos</div>
-          <h2 id="videos-h">Contenido que <span class="g-main" style="-webkit-text-fill-color:transparent">genera impacto</span></h2>
-          <p>Algunos de los videos más virales de nuestra comunidad</p>
+          <h2 id="videos-h">Colaboraciones que <span class="g-main" style="-webkit-text-fill-color:transparent">ya existen</span></h2>
+          <p>Posts reales de nuestras colaboraciones — haz click para verlos en Instagram</p>
         </div>
         <div class="videos-grid reveal d1">
-          <div class="vcard">
+          <a href="https://www.instagram.com/p/DXsquG8DT4F/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v1">
-              <div class="vcard-play" aria-hidden="true"><i class="fas fa-play" style="margin-left:2px"></i></div>
+              <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
-                <div class="vcard-views">1.2M vistas</div>
-                <div class="vcard-title">3 Herramientas de IA que usan todos los profesionales</div>
+                <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
+                <div class="vcard-title">Colaboración camidevai × papaolazo</div>
               </div>
             </div>
-          </div>
-          <div class="vcard">
+          </a>
+          <a href="https://www.instagram.com/p/DXYFG47jQcY/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v2">
-              <div class="vcard-play" aria-hidden="true"><i class="fas fa-play" style="margin-left:2px"></i></div>
+              <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
-                <div class="vcard-views">890K vistas</div>
-                <div class="vcard-title">Cuando la IA te responde lo que nadie esperaba</div>
+                <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
+                <div class="vcard-title">Colaboración camidevai × papaolazo</div>
               </div>
             </div>
-          </div>
-          <div class="vcard">
+          </a>
+          <a href="https://www.instagram.com/p/DXQYB4VjcX8/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v3">
-              <div class="vcard-play" aria-hidden="true"><i class="fas fa-play" style="margin-left:2px"></i></div>
+              <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
-                <div class="vcard-views">2.1M vistas</div>
-                <div class="vcard-title">Así usé la IA para ser más productiva este mes</div>
+                <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
+                <div class="vcard-title">Colaboración camidevai × papaolazo</div>
               </div>
             </div>
-          </div>
-          <div class="vcard">
+          </a>
+          <a href="https://www.instagram.com/p/DVmmc-YDZrW/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v4">
-              <div class="vcard-play" aria-hidden="true"><i class="fas fa-play" style="margin-left:2px"></i></div>
+              <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
-                <div class="vcard-views">650K vistas</div>
-                <div class="vcard-title">Expectativa vs Realidad de trabajar desde casa</div>
+                <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
+                <div class="vcard-title">Colaboración camidevai × papaolazo</div>
               </div>
             </div>
-          </div>
-          <div class="vcard">
+          </a>
+          <a href="https://www.instagram.com/p/DXu3UIOgddo/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
             <div class="vcard-bg v5">
-              <div class="vcard-play" aria-hidden="true"><i class="fas fa-play" style="margin-left:2px"></i></div>
+              <div class="vcard-play"><i class="fab fa-instagram"></i></div>
               <div class="vcard-info">
-                <div class="vcard-views">3.4M vistas</div>
-                <div class="vcard-title">Probamos lo más viral de las redes esta semana</div>
+                <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
+                <div class="vcard-title">Colaboración camidevai × papaolazo</div>
               </div>
             </div>
-          </div>
+          </a>
+          <a href="https://www.instagram.com/p/DX-sNXKtSha/" target="_blank" rel="noopener noreferrer" class="vcard" aria-label="Ver colaboración en Instagram">
+            <div class="vcard-bg v6">
+              <div class="vcard-play"><i class="fab fa-instagram"></i></div>
+              <div class="vcard-info">
+                <div class="vcard-views"><i class="fab fa-instagram" style="font-size:10px;margin-right:4px"></i>Ver en Instagram</div>
+                <div class="vcard-title">Colaboración camidevai × papaolazo</div>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </div>
