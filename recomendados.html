@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recomendados — Los Influenciados con CamiDevAI y Papaolazo</title>
+  <meta name="description" content="Negocios, marcas, lugares, productos y experiencias recomendados por Los Influenciados. Descubre lo mejor de Chile a través de contenido real y entretenido.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #050508;
+      --bg2:    #0a0a12;
+      --card:   #0d0d18;
+      --blue:   #3b82f6;
+      --blue-l: #60a5fa;
+      --purple: #a855f7;
+      --purp-l: #c084fc;
+      --cyan:   #06b6d4;
+      --cyan-l: #22d3ee;
+      --pink:   #ec4899;
+      --green:  #4ade80;
+      --white:  #ffffff;
+      --w80: rgba(255,255,255,0.8);
+      --w60: rgba(255,255,255,0.6);
+      --w40: rgba(255,255,255,0.4);
+      --w20: rgba(255,255,255,0.2);
+      --w10: rgba(255,255,255,0.1);
+      --w05: rgba(255,255,255,0.05);
+      --border: rgba(255,255,255,0.08);
+      --border-h: rgba(255,255,255,0.14);
+      --r: 18px;
+      --r-lg: 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--white);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .g-main { background: linear-gradient(135deg, var(--blue), var(--purple), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .g-blue { background: linear-gradient(135deg, var(--blue-l), var(--cyan-l)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .g-purple { background: linear-gradient(135deg, var(--purp-l), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 14px 32px;
+      background: rgba(5,5,8,0.88);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .nav-brand { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; white-space: nowrap; text-decoration: none; color: inherit; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 13.5px; color: var(--w60); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-cta {
+      padding: 9px 22px; border-radius: 100px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; font-size: 13px; font-weight: 700;
+      text-decoration: none; white-space: nowrap;
+      box-shadow: 0 0 24px rgba(99,102,241,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 32px rgba(99,102,241,0.55); }
+    @media (max-width: 680px) {
+      nav { padding: 12px 20px; }
+      .nav-links { display: none; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 55vh;
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      padding: 140px 32px 60px;
+      overflow: hidden;
+      text-align: center;
+    }
+    .hero-glow-1 {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(59,130,246,0.16) 0%, transparent 70%);
+      top: -100px; left: -100px; pointer-events: none;
+      animation: gFloat 8s ease-in-out infinite;
+    }
+    .hero-glow-2 {
+      position: absolute; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(168,85,247,0.12) 0%, transparent 70%);
+      bottom: -60px; right: -80px; pointer-events: none;
+      animation: gFloat 10s ease-in-out infinite reverse;
+    }
+    .hero-grid {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 52px 52px;
+    }
+    @keyframes gFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-28px)} }
+
+    .hero-inner { position: relative; z-index: 1; max-width: 700px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--w05); border: 1px solid var(--border);
+      border-radius: 100px; padding: 7px 18px;
+      font-size: 12px; font-weight: 500; color: var(--cyan-l);
+      margin-bottom: 28px; backdrop-filter: blur(8px);
+    }
+    .hero-badge .dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 6px var(--cyan); animation: blink 1.8s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .hero-title {
+      font-size: clamp(28px, 5vw, 56px);
+      font-weight: 900; letter-spacing: -2px;
+      line-height: 1.05; margin-bottom: 18px;
+    }
+    .hero-sub {
+      font-size: 16.5px; color: var(--w60);
+      line-height: 1.7; max-width: 580px; margin: 0 auto;
+    }
+
+    /* ── DIVIDER ── */
+    .hr { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+
+    /* ── MAIN ── */
+    .main { max-width: 1200px; margin: 0 auto; padding: 56px 32px 80px; }
+
+    /* ── FILTERS ── */
+    .filters-bar {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 48px; align-items: center;
+    }
+    .filter-label { font-size: 12px; color: var(--w40); font-weight: 500; margin-right: 4px; white-space: nowrap; }
+    .filter-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 100px;
+      font-size: 13px; font-weight: 600;
+      background: var(--w05); border: 1px solid var(--border);
+      color: var(--w60); cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover { background: var(--w10); color: var(--white); transform: translateY(-1px); }
+    .filter-btn.active {
+      background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(168,85,247,0.2));
+      border-color: rgba(99,102,241,0.5); color: var(--white);
+    }
+
+    /* ── CARDS GRID ── */
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* ── REC CARD ── */
+    .rec-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--r-lg); overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: transform 0.3s cubic-bezier(.22,1,.36,1), border-color 0.3s, box-shadow 0.3s;
+    }
+    .rec-card:hover { transform: translateY(-6px); border-color: var(--border-h); box-shadow: 0 24px 56px rgba(0,0,0,0.4); }
+
+    /* Card image */
+    .rec-img-wrap {
+      position: relative; aspect-ratio: 16/9; overflow: hidden;
+      flex-shrink: 0;
+    }
+    .rec-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 52px;
+    }
+    .rec-img-placeholder.p1 { background: linear-gradient(135deg, #0f2340, #1e4080, #3b82f6); }
+    .rec-img-placeholder.p2 { background: linear-gradient(135deg, #0a1f1a, #065f46, #10b981); }
+    .rec-img-placeholder.p3 { background: linear-gradient(135deg, #1a0a30, #4c1d95, #a855f7); }
+    .rec-img-placeholder.p4 { background: linear-gradient(135deg, #1a0a18, #7f1d1d, #ec4899); }
+    .rec-img-placeholder.p5 { background: linear-gradient(135deg, #1a1a0a, #713f12, #f59e0b); }
+    .rec-img-placeholder.p6 { background: linear-gradient(135deg, #0a0a1a, #1e1b4b, #6366f1); }
+    .rec-img-real {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .rec-card:hover .rec-img-real { transform: scale(1.05); }
+
+    /* Badges sobre imagen */
+    .rec-visited-badge {
+      position: absolute; top: 12px; left: 12px;
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(0,0,0,0.65); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px; padding: 5px 12px;
+      font-size: 11px; font-weight: 600; color: #fff;
+      white-space: nowrap;
+    }
+    .rec-visited-badge i { color: var(--cyan-l); font-size: 10px; }
+    .rec-cat-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(99,102,241,0.2); backdrop-filter: blur(8px);
+      border: 1px solid rgba(99,102,241,0.35);
+      border-radius: 100px; padding: 4px 12px;
+      font-size: 11px; font-weight: 600; color: #a5b4fc;
+    }
+
+    /* Card body */
+    .rec-body { padding: 20px; display: flex; flex-direction: column; flex: 1; gap: 0; }
+    .rec-city {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 11.5px; color: var(--w40); margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .rec-city i { font-size: 10px; color: var(--cyan-l); }
+    .rec-name {
+      font-size: 17px; font-weight: 800; letter-spacing: -0.4px;
+      line-height: 1.2; margin-bottom: 8px;
+    }
+    .rec-desc {
+      font-size: 13px; color: var(--w60); line-height: 1.65;
+      margin-bottom: 18px; flex: 1;
+    }
+
+    /* Card buttons */
+    .rec-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .rec-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 14px; border-radius: 10px;
+      font-size: 12.5px; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      border: none;
+    }
+    .rec-btn-video {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; box-shadow: 0 0 14px rgba(99,102,241,0.25);
+    }
+    .rec-btn-video:hover { transform: scale(1.04); box-shadow: 0 0 22px rgba(99,102,241,0.45); }
+    .rec-btn-ig {
+      background: var(--w05); border: 1px solid var(--border);
+      color: var(--w60);
+    }
+    .rec-btn-ig:hover { background: var(--w10); color: var(--white); }
+    .rec-btn-map {
+      background: rgba(6,182,212,0.1); border: 1px solid rgba(6,182,212,0.25);
+      color: var(--cyan-l);
+    }
+    .rec-btn-map:hover { background: rgba(6,182,212,0.18); }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      display: none; grid-column: 1 / -1;
+      text-align: center; padding: 80px 32px;
+    }
+    .empty-state.visible { display: block; }
+    .empty-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .empty-sub { font-size: 14px; color: var(--w40); }
+
+    /* ── CTA POSTULAR ── */
+    .postular-section {
+      margin-top: 80px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.07), rgba(168,85,247,0.07));
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 28px; padding: 56px 40px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .postular-section::before {
+      content: ''; position: absolute;
+      top: -80px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px;
+      background: radial-gradient(ellipse, rgba(99,102,241,0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .postular-label {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.28);
+      border-radius: 100px; padding: 5px 16px;
+      font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      color: #a5b4fc; margin-bottom: 20px; position: relative;
+    }
+    .postular-title {
+      font-size: clamp(22px, 4vw, 38px); font-weight: 900;
+      letter-spacing: -1.2px; line-height: 1.1; margin-bottom: 14px;
+      position: relative;
+    }
+    .postular-sub {
+      font-size: 15.5px; color: var(--w60);
+      line-height: 1.7; max-width: 500px; margin: 0 auto 32px;
+      position: relative;
+    }
+    .postular-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 100px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; font-size: 15px; font-weight: 700;
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 0 28px rgba(99,102,241,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(99,102,241,0.55); }
+    .btn-wsp {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 100px;
+      background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25);
+      color: #4ade80; font-size: 15px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s, box-shadow 0.2s;
+    }
+    .btn-wsp:hover { background: rgba(37,211,102,0.18); box-shadow: 0 6px 24px rgba(37,211,102,0.2); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg); border-top: 1px solid var(--border);
+      padding: 40px 32px; text-align: center;
+    }
+    .footer-brand { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+    .footer-links { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 20px; }
+    .footer-links a {
+      width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+      background: var(--w05); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--w60); font-size: 15px;
+      text-decoration: none; transition: all 0.25s;
+    }
+    .footer-links a:hover { background: var(--w10); color: var(--white); transform: translateY(-2px); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 110px 20px 48px; }
+      .main { padding: 44px 20px 60px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .postular-section { padding: 40px 24px; }
+      .postular-btns { flex-direction: column; align-items: stretch; }
+      .btn-primary, .btn-wsp { justify-content: center; }
+      .filters-bar { gap: 6px; }
+      .filter-btn { padding: 7px 14px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+  <nav aria-label="Navegación principal">
+    <a href="index.html" class="nav-brand">
+      <span class="g-main" style="-webkit-text-fill-color:transparent">Los Influenciados</span>
+      <span style="color:var(--w40);font-size:11px;font-weight:400;margin-left:7px">con camidevai × papaolazo</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="recomendados.html" class="active">Recomendados</a></li>
+      <li><a href="menu.html">Servicios</a></li>
+      <li><a href="index.html#contacto">Postula</a></li>
+    </ul>
+    <a href="index.html#contacto" class="nav-cta">Ser influenciado</a>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-glow-1" aria-hidden="true"></div>
+    <div class="hero-glow-2" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="dot" aria-hidden="true"></span>
+        Recomendados por CamiDevAI y Papaolazo
+      </div>
+      <h1 class="hero-title">
+        Recomendados por<br>
+        <span class="g-main" style="-webkit-text-fill-color:transparent">Los Influenciados</span>
+      </h1>
+      <p class="hero-sub">
+        Una vitrina digital para descubrir negocios reales a través de contenido entretenido, cercano y estratégico.
+      </p>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- ══ MAIN ══ -->
+  <main class="main">
+
+    <!-- Filtros -->
+    <div class="filters-bar" role="group" aria-label="Filtrar por categoría">
+      <span class="filter-label">Filtrar:</span>
+      <button class="filter-btn active" data-filter="todos">✦ Todos</button>
+      <button class="filter-btn" data-filter="comida">🍽️ Comida</button>
+      <button class="filter-btn" data-filter="cafeterias">☕ Cafeterías</button>
+      <button class="filter-btn" data-filter="turismo">🏨 Turismo</button>
+      <button class="filter-btn" data-filter="tiendas">🛍️ Tiendas</button>
+      <button class="filter-btn" data-filter="experiencias">✨ Experiencias</button>
+      <button class="filter-btn" data-filter="emprendimientos">🚀 Emprendimientos</button>
+      <button class="filter-btn" data-filter="servicios">🔧 Servicios</button>
+      <button class="filter-btn" data-filter="productos">📦 Productos</button>
+    </div>
+
+    <!-- Cards -->
+    <div class="cards-grid" id="cardsGrid">
+
+      <!-- Card 1: Cafetería -->
+      <article class="rec-card" data-category="cafeterias">
+        <div class="rec-img-wrap">
+          <div class="rec-img-placeholder p1" aria-hidden="true">☕</div>
+          <span class="rec-visited-badge"><i class="fas fa-star"></i> Visitado por Cami y Paolo</span>
+          <span class="rec-cat-badge">Cafetería</span>
+        </div>
+        <div class="rec-body">
+          <div class="rec-city"><i class="fas fa-map-marker-alt"></i> Santiago, RM</div>
+          <h2 class="rec-name">La Morada Café</h2>
+          <p class="rec-desc">Un café especialidad escondido en el corazón de Santiago. Granos de origen, ambiente cálido y el mejor latte art que hemos probado. Un must para los amantes del café de verdad.</p>
+          <div class="rec-btns">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="rec-btn rec-btn-video">
+              <i class="fab fa-instagram"></i> Ver video
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="rec-btn rec-btn-ig">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="rec-btn rec-btn-map">
+              <i class="fas fa-map-marker-alt"></i> Cómo llegar
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: Turismo -->
+      <article class="rec-card" data-category="turismo">
+        <div class="rec-img-wrap">
+          <div class="rec-img-placeholder p2" aria-hidden="true">🌊</div>
+          <span class="rec-visited-badge"><i class="fas fa-star"></i> Visitado por Cami y Paolo</span>
+          <span class="rec-cat-badge">Turismo</span>
+        </div>
+        <div class="rec-body">
+          <div class="rec-city"><i class="fas fa-map-marker-alt"></i> Valparaíso, V Región</div>
+          <h2 class="rec-name">Mirador del Pacífico</h2>
+          <p class="rec-desc">Hostal boutique con vista panorámica al mar desde los cerros de Valparaíso. Desayuno incluido, ambiente íntimo y una de las vistas más impresionantes de Chile. Imperdible.</p>
+          <div class="rec-btns">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="rec-btn rec-btn-video">
+              <i class="fab fa-instagram"></i> Ver video
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="rec-btn rec-btn-ig">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="rec-btn rec-btn-map">
+              <i class="fas fa-map-marker-alt"></i> Cómo llegar
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: Emprendimiento -->
+      <article class="rec-card" data-category="emprendimientos">
+        <div class="rec-img-wrap">
+          <div class="rec-img-placeholder p3" aria-hidden="true">🧵</div>
+          <span class="rec-visited-badge"><i class="fas fa-star"></i> Visitado por Cami y Paolo</span>
+          <span class="rec-cat-badge">Emprendimiento</span>
+        </div>
+        <div class="rec-body">
+          <div class="rec-city"><i class="fas fa-map-marker-alt"></i> Concepción, VIII Región</div>
+          <h2 class="rec-name">Alma Textil</h2>
+          <p class="rec-desc">Marca local de ropa con bordados a mano hechos en Chile. Piezas únicas con identidad propia, diseño original y un emprendimiento que merece mucha más visibilidad. 100% recomendado.</p>
+          <div class="rec-btns">
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="rec-btn rec-btn-video">
+              <i class="fab fa-instagram"></i> Ver video
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" class="rec-btn rec-btn-ig">
+              <i class="fab fa-instagram"></i> Instagram
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState" aria-live="polite">
+        <div class="empty-icon">🔍</div>
+        <div class="empty-title">Próximamente en esta categoría</div>
+        <p class="empty-sub">Seguimos recorriendo Chile. Vuelve pronto para ver los recomendados de esta categoría.</p>
+      </div>
+
+    </div>
+
+    <!-- CTA Postular -->
+    <div class="postular-section">
+      <div class="postular-label">
+        <i class="fas fa-paper-plane" style="font-size:10px"></i>
+        ¿Tu negocio quiere estar aquí?
+      </div>
+      <h2 class="postular-title">
+        ¿Quieres aparecer en<br>
+        <span class="g-main" style="-webkit-text-fill-color:transparent">Los Influenciados?</span>
+      </h2>
+      <p class="postular-sub">
+        Si tienes un restaurante, hotel, tienda, marca, servicio o experiencia que vale la pena mostrar, escríbenos. Recorremos Chile y creamos contenido real que conecta marcas con nuevas audiencias.
+      </p>
+      <div class="postular-btns">
+        <a href="https://wa.me/56933830479?text=Hola%21+Quiero+postular+mi+negocio+para+aparecer+en+Los+Influenciados+con+CamiDevAI+y+Papaolazo.+%C2%BFPodemos+conversar%3F"
+           target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <i class="fas fa-paper-plane" aria-hidden="true"></i>
+          Postular mi negocio
+        </a>
+        <a href="menu.html" class="btn-wsp">
+          <i class="fas fa-tag" aria-hidden="true"></i>
+          Ver servicios y precios
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-brand">
+      <span class="g-main" style="-webkit-text-fill-color:transparent">Los Influenciados</span>
+      <span style="color:var(--w40);font-size:13px;font-weight:400;margin-left:8px">con camidevai × papaolazo</span>
+    </div>
+    <nav class="footer-links" aria-label="Redes sociales">
+      <a href="https://www.instagram.com/camidevai" target="_blank" rel="noopener noreferrer" aria-label="Instagram CamiDevAI"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.instagram.com/papaolazo" target="_blank" rel="noopener noreferrer" aria-label="Instagram Papaolazo"><i class="fab fa-instagram"></i></a>
+    </nav>
+    <p class="footer-copy">© 2026 Los Influenciados con CamiDevAI y Papaolazo · Todos los derechos reservados</p>
+  </footer>
+
+  <!-- ══ SCRIPTS ══ -->
+  <script>
+    // Filter logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.rec-card');
+    const emptyState = document.getElementById('emptyState');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.filter;
+        let visible = 0;
+        cards.forEach(card => {
+          const matches = cat === 'todos' || card.dataset.category === cat;
+          card.style.display = matches ? '' : 'none';
+          if (matches) visible++;
+        });
+        emptyState.classList.toggle('visible', visible === 0);
+      });
+    });
+  </script>
+
+</body>
+</html>

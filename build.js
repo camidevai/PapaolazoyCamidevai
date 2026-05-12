@@ -70,6 +70,7 @@ html = html
 
 fs.writeFileSync(path.join(dist, 'index.html'), html);
 fs.copyFileSync('qr.html', path.join(dist, 'qr.html'));
+fs.copyFileSync('recomendados.html', path.join(dist, 'recomendados.html'));
 
 // Procesa menu.html
 let menuHtml = fs.readFileSync('menu.html', 'utf8');
@@ -79,4 +80,5 @@ fs.writeFileSync(path.join(dist, 'menu.html'), menuHtml);
 console.log('Build OK → dist/');
 console.log('  index.html  (EmailJS + WhatsApp inyectados)');
 console.log('  qr.html');
+console.log('  recomendados.html');
 console.log('  img/  (fotos de perfil)');
