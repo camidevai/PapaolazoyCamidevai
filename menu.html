@@ -54,9 +54,42 @@
     .page { max-width: 1000px; margin: 0 auto; padding: 0 24px 80px; }
 
     /* ════════════════ HERO ════════════════ */
+    /* ── Nav ── */
+    .mnav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 14px 24px;
+      background: rgba(5,5,8,0.88);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .mnav-brand { font-size: 14px; font-weight: 700; letter-spacing: -0.3px; white-space: nowrap; }
+    .mnav-links {
+      display: flex; align-items: center; gap: 24px;
+      list-style: none;
+    }
+    .mnav-links a {
+      font-size: 13px; color: rgba(255,255,255,0.6); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mnav-links a:hover, .mnav-links a.active { color: #fff; }
+    .mnav-wsp {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 18px; border-radius: 100px;
+      background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25);
+      color: #4ade80; font-size: 13px; font-weight: 600;
+      text-decoration: none; white-space: nowrap;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .mnav-wsp:hover { background: rgba(37,211,102,0.18); box-shadow: 0 4px 16px rgba(37,211,102,0.15); }
+    @media (max-width: 540px) {
+      .mnav-links { display: none; }
+      .mnav-brand { font-size: 13px; }
+    }
+
     .hero {
       position: relative; overflow: hidden;
-      padding: 60px 24px 48px;
+      padding: 110px 24px 48px;
       margin-bottom: 0;
       background:
         radial-gradient(ellipse 80% 60% at 50% -10%, rgba(79,70,229,0.35) 0%, transparent 65%),
@@ -336,6 +369,22 @@
 </head>
 <body>
 
+  <!-- ════ NAV ════ -->
+  <nav class="mnav" aria-label="Navegación principal">
+    <span class="mnav-brand">
+      <span class="g-main" style="-webkit-text-fill-color:transparent">Modo Wow</span>
+      <span style="color:rgba(255,255,255,0.4);font-size:11px;font-weight:400;margin-left:7px">con camidevai × papaolazo</span>
+    </span>
+    <ul class="mnav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="menu.html" class="active">Servicios</a></li>
+    </ul>
+    <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+conocer+los+servicios+y+valores+para+crear+contenido+con+CamiDevAI+y+Papaolazo."
+       target="_blank" rel="noopener noreferrer" class="mnav-wsp">
+      <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+  </nav>
+
   <!-- ════ HERO ════ -->
   <section class="hero">
     <div class="hero-grid" aria-hidden="true"></div>
@@ -345,14 +394,14 @@
       <div class="hero-left">
         <div class="hero-eyebrow">
           <span class="dot" aria-hidden="true"></span>
-          Disponibles para colaboraciones · Temuco
+          Activando Modo Wow en negocios de Chile
         </div>
         <h1 class="hero-title">
-          Tu local en<br>
-          <span class="g-main" style="-webkit-text-fill-color:transparent">270K+ pantallas</span>
+          Tu negocio en<br>
+          <span class="g-main" style="-webkit-text-fill-color:transparent">Modo Wow</span>
         </h1>
         <p class="hero-sub">
-          Somos Camidevai y Papaolazo — creadores de contenido que generan visibilidad real para negocios locales con humor y tecnología.
+          Recorremos lugares, probamos experiencias y mostramos marcas con contenido entretenido que conecta negocios con nuevas audiencias.
         </p>
         <div class="hero-stats">
           <div class="h-stat">
@@ -379,7 +428,7 @@
           </div>
           <div class="cc-info">
             <div class="cc-name g-blue" style="-webkit-text-fill-color:transparent">camidevai</div>
-            <div class="cc-handle">IA · Tecnología · Educación</div>
+            <div class="cc-handle">Lugares · Marcas · Experiencias</div>
           </div>
           <div class="cc-stat">
             <div class="cc-stat-num g-blue" style="-webkit-text-fill-color:transparent">267K</div>
@@ -416,14 +465,14 @@
         <div class="promo-icon">🎉</div>
         <div class="promo-body">
           <strong>Precio especial de lanzamiento — 30% descuento</strong>
-          <span>Para los primeros 10 locales que contraten en Temuco</span>
+          <span>Para los primeros 10 negocios que activen Modo Wow</span>
         </div>
       </div>
 
       <!-- Paquetes -->
       <div class="sec-header">
         <div class="sec-label">✦ Nuestros servicios</div>
-        <h2 class="sec-title">Elige el paquete para tu local</h2>
+        <h2 class="sec-title">Elige cómo activar Modo Wow</h2>
       </div>
 
       <div class="pkg-grid">
@@ -444,12 +493,13 @@
               </div>
             </div>
             <ul class="pkg-features">
-              <li><span class="f-check"><i class="fas fa-check"></i></span> 1 historia con tag de tu local</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> 1 historia con tag de tu negocio</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Mención de nombre y ubicación</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Entrega en 48 horas</li>
               <li><span class="f-no"><i class="fas fa-times"></i></span> <span>Sin video ni post en feed</span></li>
             </ul>
-            <a href="__WSP_MENU_CAMI__" class="pkg-cta cta-bronze">
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+este+paquete+de+contenido.+Quiero+saber+disponibilidad%2C+valores+y+c%C3%B3mo+funciona."
+               target="_blank" rel="noopener noreferrer" class="pkg-cta cta-bronze">
               <i class="fab fa-whatsapp"></i> Me interesa
             </a>
           </div>
@@ -477,7 +527,8 @@
               <li><span class="f-check"><i class="fas fa-check"></i></span> Caption con hashtags optimizados</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Entrega en 72 horas</li>
             </ul>
-            <a href="__WSP_MENU_CAMI__" class="pkg-cta cta-silver">
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+este+paquete+de+contenido.+Quiero+saber+disponibilidad%2C+valores+y+c%C3%B3mo+funciona."
+               target="_blank" rel="noopener noreferrer" class="pkg-cta cta-silver">
               <i class="fab fa-whatsapp"></i> Me interesa
             </a>
           </div>
@@ -500,14 +551,15 @@
               </div>
             </div>
             <ul class="pkg-features">
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Video 30–60 seg dedicado a tu local</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Video 30–60 seg dedicado a tu negocio o marca</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> 1 post + 5 historias</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Guión y producción incluidos</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Formato Reel optimizado para viral</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Ambos creadores en el contenido</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Entrega en 5 días hábiles</li>
             </ul>
-            <a href="__WSP_MENU_CAMI__" class="pkg-cta cta-gold">
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+este+paquete+de+contenido.+Quiero+saber+disponibilidad%2C+valores+y+c%C3%B3mo+funciona."
+               target="_blank" rel="noopener noreferrer" class="pkg-cta cta-gold">
               <i class="fab fa-whatsapp"></i> Me interesa
             </a>
           </div>
@@ -532,11 +584,12 @@
               <li><span class="f-check"><i class="fas fa-check"></i></span> 1 video completo + 1 post</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> 10 historias en 1 mes</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Estrategia de contenido personalizada</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> 1 visita presencial a tu local</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> 1 visita presencial a tu lugar o evento</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Reporte de alcance e impresiones</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Prioridad de atención</li>
             </ul>
-            <a href="__WSP_MENU_CAMI__" class="pkg-cta cta-launch">
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+una+campa%C3%B1a+mensual+de+contenido+con+CamiDevAI+y+Papaolazo.+%C2%BFPodemos+conversar%3F"
+               target="_blank" rel="noopener noreferrer" class="pkg-cta cta-launch">
               <i class="fab fa-whatsapp"></i> Me interesa
             </a>
           </div>
@@ -559,7 +612,7 @@
             <div class="faq-a">50% al inicio, 50% al entregar el contenido. Transferencia o efectivo.</div>
           </div>
           <div class="faq">
-            <div class="faq-q">¿Pueden venir a mi local?</div>
+            <div class="faq-q">¿Pueden venir a mi negocio o evento?</div>
             <div class="faq-a">Sí — incluido en los paquetes Premium y Pack Total.</div>
           </div>
           <div class="faq">
@@ -571,16 +624,17 @@
 
       <!-- Final CTA -->
       <div class="final-cta">
-        <h2 class="final-cta-title">¿Listo para llenar tu local?</h2>
-        <p class="final-cta-sub">Escríbenos ahora y te contamos cómo lo hacemos</p>
+        <h2 class="final-cta-title">¿Listo para activar <span class="g-main" style="-webkit-text-fill-color:transparent">Modo Wow</span>?</h2>
+        <p class="final-cta-sub">Escríbenos y en menos de 24 horas te contamos cómo funciona</p>
         <div class="final-cta-btns">
-          <a href="__WSP_MENU_CAMI__" class="wsp-btn">
+          <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+conocer+los+servicios+y+valores+para+crear+contenido+con+CamiDevAI+y+Papaolazo."
+             target="_blank" rel="noopener noreferrer" class="wsp-btn">
             <i class="fab fa-whatsapp" style="font-size:18px"></i>
             Hablar por WhatsApp
           </a>
-          <a href="https://influencerstemuco.netlify.app" target="_blank" rel="noopener noreferrer" class="landing-btn">
-            <i class="fas fa-globe" style="font-size:14px"></i>
-            Ver nuestro perfil completo
+          <a href="index.html" class="landing-btn">
+            <i class="fas fa-arrow-left" style="font-size:13px"></i>
+            Ver perfil completo
           </a>
         </div>
       </div>
