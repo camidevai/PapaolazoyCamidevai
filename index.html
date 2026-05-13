@@ -139,61 +139,90 @@
     .hero {
       min-height: 100vh;
       position: relative;
-      display: flex; align-items: center; justify-content: center;
-      padding: 120px 32px 80px;
+      display: flex; align-items: center;
+      padding: 120px 48px 80px;
       overflow: hidden;
     }
     .hero-glow { position: absolute; pointer-events: none; }
     .hero-glow-1 {
-      width: 700px; height: 700px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(194,122,58,0.18) 0%, transparent 70%);
-      top: -120px; left: -200px;
+      width: 800px; height: 800px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(194,122,58,0.14) 0%, transparent 65%);
+      top: -200px; right: -100px;
       animation: gFloat 8s ease-in-out infinite;
     }
     .hero-glow-2 {
-      width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(26,58,143,0.14) 0%, transparent 70%);
-      bottom: -80px; right: -150px;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(42,80,176,0.12) 0%, transparent 70%);
+      bottom: -100px; left: -100px;
       animation: gFloat 10s ease-in-out infinite reverse;
     }
-    @keyframes gFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-30px)} }
+    @keyframes gFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-24px)} }
 
     .hero-inner {
-      max-width: 860px; width: 100%;
-      display: flex; flex-direction: column; align-items: center;
-      text-align: center; position: relative; z-index: 1;
+      max-width: 1200px; width: 100%; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; align-items: center;
+      position: relative; z-index: 1;
     }
+    .hero-left { display: flex; flex-direction: column; align-items: flex-start; }
+
+    /* Right: big logo */
+    .hero-right {
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .hero-logo-main-wrap {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .hero-logo-main-wrap::before {
+      content: ''; position: absolute;
+      width: 440px; height: 440px; border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(194,122,58,0.22) 0%,
+        rgba(42,80,176,0.1) 45%,
+        transparent 70%);
+      pointer-events: none;
+      animation: gFloat 7s ease-in-out infinite;
+    }
+    .hero-logo-main {
+      width: 360px; height: 360px; object-fit: contain;
+      filter: drop-shadow(0 8px 48px rgba(194,122,58,0.55))
+              drop-shadow(0 0 80px rgba(194,122,58,0.2));
+      position: relative; z-index: 1;
+      animation: gFloat 7s ease-in-out infinite;
+    }
+
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--w05); border: 1px solid var(--border);
       border-radius: 100px; padding: 7px 18px;
       font-size: 12px; font-weight: 500; color: var(--cyan-l);
-      margin-bottom: 28px; backdrop-filter: blur(8px);
+      margin-bottom: 24px; backdrop-filter: blur(8px);
     }
-    .hero-badge .dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 6px var(--cyan); animation: blink 1.8s ease-in-out infinite; }
+    .hero-badge .dot { width: 6px; height: 6px; background: var(--purple); border-radius: 50%; box-shadow: 0 0 8px var(--purple); animation: blink 1.8s ease-in-out infinite; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
 
     .hero-title {
-      font-size: clamp(30px, 5vw, 62px);
-      font-weight: 900; letter-spacing: -2.5px;
-      line-height: 1.04; margin-bottom: 20px;
+      font-size: clamp(28px, 4vw, 56px);
+      font-weight: 900; letter-spacing: -2px;
+      line-height: 1.06; margin-bottom: 20px;
     }
     .hero-sub {
-      font-size: 17px; color: var(--w60);
-      line-height: 1.7; margin-bottom: 36px;
-      max-width: 640px;
+      font-size: 16.5px; color: var(--w60);
+      line-height: 1.72; margin-bottom: 36px;
+      max-width: 480px;
     }
-    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-start; margin-bottom: 32px; }
 
     /* Stat badges row */
     .hero-stat-badges {
-      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-start;
     }
     .hero-stat-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 8px 18px; border-radius: 100px;
+      padding: 8px 16px; border-radius: 100px;
       background: var(--w05); border: 1px solid var(--border);
-      font-size: 13px; font-weight: 500; color: var(--w80);
+      font-size: 12.5px; font-weight: 500; color: var(--w80);
       backdrop-filter: blur(8px); white-space: nowrap;
     }
     .hero-stat-badge strong { font-weight: 800; }
@@ -680,6 +709,14 @@
       .videos-grid { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-left { align-items: center; text-align: center; }
+      .hero-btns { justify-content: center; }
+      .hero-stat-badges { justify-content: center; }
+      .hero-sub { max-width: 100%; }
+      .hero-right { order: -1; }
+      .hero-logo-main { width: 240px; height: 240px; }
+      .hero-logo-main-wrap::before { width: 300px; height: 300px; }
       .impact-grid { grid-template-columns: repeat(2, 1fr); }
       .what-grid { grid-template-columns: repeat(2, 1fr); }
       .who-grid { grid-template-columns: repeat(2, 1fr); }
@@ -691,6 +728,7 @@
     @media (max-width: 640px) {
       .hero { padding: 100px 20px 60px; }
       .hero-title { letter-spacing: -1.5px; }
+      .hero-logo-main { width: 180px; height: 180px; }
       .what-section, .who-section, .dupla-section, .steps-section, .impact-section, .videos-section { padding: 60px 20px; }
       .contact-section { padding: 60px 20px; }
       .steps-track { grid-template-columns: 1fr 1fr; }
@@ -735,46 +773,57 @@
     <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
     <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
 
-    <div class="hero-inner reveal">
-      <div class="hero-logo-wrap">
-        <img src="img/logo/logo.png" alt="Los Influenciados — Impacto de Cobre" class="hero-logo">
+    <div class="hero-inner">
+
+      <!-- Columna izquierda: texto -->
+      <div class="hero-left reveal">
+        <div class="hero-badge">
+          <span class="dot" aria-hidden="true"></span>
+          Hacemos que tu empresa sea tendencia · Chile
+        </div>
+        <h1 class="hero-title">
+          Marcas, lugares y<br>
+          <span class="g-main" style="-webkit-text-fill-color:transparent">experiencias que la gente quiere descubrir</span>
+        </h1>
+        <p class="hero-sub">
+          Somos CamiDevAI y Papaolazo. Unimos tecnología, humor y creatividad para convertir negocios reales en contenido entretenido, cercano y estratégico.
+        </p>
+        <div class="hero-btns">
+          <a href="#contacto" class="btn-primary">
+            <i class="fas fa-users" aria-hidden="true"></i>
+            Quiero aparecer en Los Influenciados
+          </a>
+          <a href="menu.html" class="btn-ghost">
+            <i class="fas fa-tag" aria-hidden="true" style="font-size:11px"></i>
+            Ver servicios y precios
+          </a>
+        </div>
+        <div class="hero-stat-badges">
+          <span class="hero-stat-badge">
+            <strong style="background:linear-gradient(135deg,var(--blue-l),var(--cyan-l));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">+447K</strong>
+            seguidores combinados
+          </span>
+          <span class="hero-stat-badge">
+            <strong style="background:linear-gradient(135deg,var(--purple-l),var(--pink));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">+30M</strong>
+            vistas generadas
+          </span>
+          <span class="hero-stat-badge">
+            <i class="fas fa-map-marker-alt" style="color:var(--cyan-l);font-size:11px" aria-hidden="true"></i>
+            Contenido para marcas, locales y experiencias
+          </span>
+        </div>
+      </div><!-- /hero-left -->
+
+      <!-- Columna derecha: logo grande -->
+      <div class="hero-right reveal d2">
+        <div class="hero-logo-main-wrap">
+          <img src="img/logo/logo.png"
+               alt="Los Influenciados — Impacto de Cobre — Hacemos que tu empresa sea tendencia"
+               class="hero-logo-main">
+        </div>
       </div>
-      <div class="hero-badge">
-        <span class="dot" aria-hidden="true"></span>
-        Los Influenciados con CamiDevAI y Papaolazo · Chile
-      </div>
-      <h1 class="hero-title">
-        Los Influenciados:<br>
-        <span class="g-main" style="-webkit-text-fill-color:transparent">marcas, lugares y experiencias que la gente quiere descubrir</span>
-      </h1>
-      <p class="hero-sub">
-        Somos CamiDevAI y Papaolazo. Unimos tecnología, humor y creatividad para convertir negocios reales en contenido entretenido, cercano y estratégico.
-      </p>
-      <div class="hero-btns">
-        <a href="#contacto" class="btn-primary">
-          <i class="fas fa-users" aria-hidden="true"></i>
-          Quiero aparecer en Los Influenciados
-        </a>
-        <a href="menu.html" class="btn-ghost">
-          <i class="fas fa-tag" aria-hidden="true" style="font-size:11px"></i>
-          Ver servicios y precios
-        </a>
-      </div>
-      <div class="hero-stat-badges">
-        <span class="hero-stat-badge">
-          <strong style="background:linear-gradient(135deg,var(--blue-l),var(--cyan-l));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">+447K</strong>
-          seguidores combinados
-        </span>
-        <span class="hero-stat-badge">
-          <strong style="background:linear-gradient(135deg,var(--purple-l),var(--pink));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">+30M</strong>
-          vistas generadas
-        </span>
-        <span class="hero-stat-badge">
-          <i class="fas fa-map-marker-alt" style="color:var(--cyan-l);font-size:11px" aria-hidden="true"></i>
-          Contenido para marcas, locales y experiencias
-        </span>
-      </div>
-    </div>
+
+    </div><!-- /hero-inner -->
   </section>
 
   <div class="hr" role="separator"></div>
