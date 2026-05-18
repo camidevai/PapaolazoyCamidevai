@@ -9,13 +9,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+  <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #050508;
-      --bg2:       #0F0A05;
+      --bg:        #FAF9F7;
+      --bg2:       #F0EDE7;
       --blue:      #2A50B0;
       --blue-l:    #5078D0;
       --purple:    #C27A3A;
@@ -23,17 +25,19 @@
       --cyan:      #9B6A45;
       --cyan-l:    #D4956A;
       --pink:      #A0522D;
-      --green:     #4ade80;
-      --white:     #ffffff;
-      --w80:       rgba(255,255,255,0.8);
-      --w60:       rgba(255,255,255,0.6);
-      --w40:       rgba(255,255,255,0.4);
-      --w20:       rgba(255,255,255,0.2);
-      --w10:       rgba(255,255,255,0.1);
-      --w05:       rgba(255,255,255,0.05);
-      --border:    rgba(255,255,255,0.08);
-      --border-h:  rgba(255,255,255,0.15);
+      --green:     #16a34a;
+      --white:     #0F1A3A;
+      --w80:       rgba(15,26,58,0.85);
+      --w60:       rgba(15,26,58,0.6);
+      --w40:       rgba(15,26,58,0.4);
+      --w20:       rgba(15,26,58,0.2);
+      --w10:       rgba(15,26,58,0.1);
+      --w05:       rgba(15,26,58,0.05);
+      --border:    rgba(15,26,58,0.1);
+      --border-h:  rgba(15,26,58,0.22);
       --r:         18px;
+      --card:      rgba(15,26,58,0.04);
+      --gold:      #f59e0b;
     }
 
     html { scroll-behavior: smooth; }
@@ -48,7 +52,7 @@
 
 
     .g-blue   { background: linear-gradient(135deg, var(--blue-l), #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .g-purple { background: linear-gradient(135deg, var(--purp-l), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .g-purple { background: linear-gradient(135deg, var(--purple-l), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .g-main   { background: linear-gradient(135deg, var(--blue), var(--purple), var(--cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
     .page { max-width: 1000px; margin: 0 auto; padding: 0 24px 80px; }
@@ -57,7 +61,7 @@
     .mnav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 14px 24px;
-      background: rgba(5,5,8,0.88);
+      background: rgba(250,249,247,0.92);
       backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between; gap: 16px;
@@ -74,7 +78,7 @@
       display: inline-flex; align-items: center; gap: 7px;
       padding: 8px 18px; border-radius: 100px;
       background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25);
-      color: #4ade80; font-size: 13px; font-weight: 600;
+      color: #15803d; font-size: 13px; font-weight: 600;
       text-decoration: none; white-space: nowrap;
       transition: background 0.2s, box-shadow 0.2s;
     }
@@ -96,8 +100,8 @@
     .hero-grid {
       position: absolute; inset: 0; pointer-events: none;
       background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(15,26,58,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,26,58,0.05) 1px, transparent 1px);
       background-size: 48px 48px;
     }
     .hero-inner {
@@ -113,7 +117,7 @@
       font-size: 11.5px; font-weight: 500; color: var(--cyan);
       margin-bottom: 20px; backdrop-filter: blur(8px);
     }
-    .dot { width: 6px; height: 6px; background: #22d3ee; border-radius: 50%; box-shadow: 0 0 6px #22d3ee; animation: blink 1.8s ease-in-out infinite; flex-shrink: 0; }
+    .dot { width: 6px; height: 6px; background: var(--purple); border-radius: 50%; box-shadow: 0 0 6px rgba(194,122,58,0.5); animation: blink 1.8s ease-in-out infinite; flex-shrink: 0; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
     .hero-title {
       font-size: clamp(30px, 4vw, 50px);
@@ -144,7 +148,7 @@
     .cc-ring { position: absolute; inset: -2px; border-radius: 50%; }
     .cc-ring.c { background: linear-gradient(135deg, var(--blue), #22d3ee); }
     .cc-ring.p { background: linear-gradient(135deg, var(--purple), var(--pink)); }
-    .cc-ring::after { content: ''; position: absolute; inset: 2px; border-radius: 50%; background: var(--card); }
+    .cc-ring::after { content: ''; position: absolute; inset: 2px; border-radius: 50%; background: var(--bg); }
     .cc-photo { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; position: relative; z-index: 1; display: block; }
     .cc-info { flex: 1; min-width: 0; }
     .cc-name { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
@@ -204,7 +208,7 @@
 
     /* ── PACKAGES ── */
     .pkg-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
+      display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 16px; margin-bottom: 12px;
     }
     .pkg {
@@ -218,7 +222,9 @@
     .pkg-stripe { height: 3px; flex-shrink: 0; }
     .s-bronze { background: linear-gradient(90deg, #92400e, #d97706, #f59e0b); }
     .s-silver { background: linear-gradient(90deg, #374151, #6b7280, #d1d5db); }
+    .s-teal   { background: linear-gradient(90deg, #0e7490, #06b6d4, #67e8f9); }
     .s-gold   { background: linear-gradient(90deg, var(--blue), var(--purple), var(--cyan)); }
+    .s-indigo { background: linear-gradient(90deg, #312e81, #4f46e5, #818cf8); }
     .s-launch { background: linear-gradient(90deg, var(--purple), var(--pink), var(--gold)); }
     .pkg-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
     .pkg-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
@@ -226,10 +232,12 @@
       font-size: 11px; font-weight: 600; padding: 3px 10px;
       border-radius: 100px; display: inline-block; margin-bottom: 8px;
     }
-    .b-bronze { background: rgba(217,119,6,0.14); color: #fbbf24; border: 1px solid rgba(217,119,6,0.25); }
-    .b-silver { background: rgba(107,114,128,0.14); color: #d1d5db; border: 1px solid rgba(107,114,128,0.25); }
-    .b-gold   { background: rgba(26,58,143,0.14); color: #1A3A8F; border: 1px solid rgba(26,58,143,0.25); }
-    .b-launch { background: rgba(236,72,153,0.14); color: #f9a8d4; border: 1px solid rgba(236,72,153,0.25); }
+    .b-bronze { background: rgba(217,119,6,0.12); color: #92400e; border: 1px solid rgba(217,119,6,0.3); }
+    .b-silver { background: rgba(107,114,128,0.12); color: #374151; border: 1px solid rgba(107,114,128,0.3); }
+    .b-teal   { background: rgba(6,182,212,0.12); color: #0e7490; border: 1px solid rgba(6,182,212,0.3); }
+    .b-gold   { background: rgba(26,58,143,0.12); color: #1e40af; border: 1px solid rgba(26,58,143,0.3); }
+    .b-indigo { background: rgba(79,70,229,0.12); color: #312e81; border: 1px solid rgba(79,70,229,0.3); }
+    .b-launch { background: rgba(236,72,153,0.12); color: #9d174d; border: 1px solid rgba(236,72,153,0.3); }
     .pkg-name { font-size: 19px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
     .pkg-ideal { font-size: 12px; color: var(--w40); line-height: 1.5; margin-bottom: 16px; }
     .pkg-price { text-align: right; flex-shrink: 0; }
@@ -252,7 +260,9 @@
     .pkg-cta:hover { transform: translateY(-1px); opacity: 0.9; }
     .cta-bronze { background: linear-gradient(135deg, #92400e, #d97706); color: #fff; }
     .cta-silver { background: linear-gradient(135deg, #374151, #6b7280); color: #fff; }
+    .cta-teal   { background: linear-gradient(135deg, #0e7490, #06b6d4); color: #fff; }
     .cta-gold   { background: linear-gradient(135deg, var(--blue), var(--purple)); color: #fff; box-shadow: 0 0 20px rgba(194,122,58,0.3); }
+    .cta-indigo { background: linear-gradient(135deg, #312e81, #4f46e5); color: #fff; }
     .cta-launch { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; box-shadow: 0 0 20px rgba(160,82,45,0.3); }
     .popular-label {
       position: absolute; top: 16px; right: 16px;
@@ -344,12 +354,14 @@
     }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .pkg-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 720px) {
       .hero-inner   { grid-template-columns: 1fr; gap: 32px; }
       .hero-right   { flex-direction: row; gap: 12px; }
       .creator-card { flex: 1; flex-direction: column; text-align: center; }
       .cc-stat      { text-align: center; }
-      .pkg-grid     { grid-template-columns: 1fr; }
       .bottom-grid  { grid-template-columns: 1fr; }
       .final-cta    { padding: 32px 20px; }
       .launch-section { padding: 28px 22px; }
@@ -357,6 +369,7 @@
       .hero         { padding: 110px 16px 44px; }
     }
     @media (max-width: 480px) {
+      .pkg-grid    { grid-template-columns: 1fr; }
       .hero-right  { flex-direction: column; }
       .hero-stats  { gap: 16px; }
       .hero-btns   { flex-direction: column; }
@@ -421,7 +434,7 @@
             <div class="h-stat-lbl">Seguidores combinados</div>
           </div>
           <div class="h-stat">
-            <div class="h-stat-num" style="background:linear-gradient(135deg,#22d3ee,#a855f7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">+30M</div>
+            <div class="h-stat-num" style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">+30M</div>
             <div class="h-stat-lbl">Vistas generadas</div>
           </div>
         </div>
@@ -476,123 +489,184 @@
 
       <div class="pkg-grid">
 
-        <!-- Paquete 1: Historia Express -->
+        <!-- 1: Historia Simple -->
         <div class="pkg">
           <div class="pkg-stripe s-bronze"></div>
           <div class="pkg-body">
             <div class="pkg-top">
               <div>
-                <span class="pkg-badge b-bronze">⚡ Historia Express</span>
-                <div class="pkg-name">Mención rápida</div>
+                <span class="pkg-badge b-bronze">📱 Historia Simple</span>
+                <div class="pkg-name">Visibilidad rápida</div>
               </div>
               <div class="pkg-price">
                 <span class="p-tag">valor lanzamiento</span>
-                <span class="p-amount" style="background:linear-gradient(135deg,#d97706,#f59e0b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">$15.000</span>
+                <span class="p-amount" style="background:linear-gradient(135deg,#d97706,#f59e0b);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">$20.000</span>
                 <span class="p-period">por historia</span>
               </div>
             </div>
-            <p class="pkg-ideal">Ideal para anuncios rápidos, promociones o lanzamientos que necesitan llegar rápido.</p>
+            <p class="pkg-ideal">1 historia en una plataforma de ambos. Ideal para anuncios rápidos y visibilidad inmediata.</p>
             <ul class="pkg-features">
-              <li><span class="f-check"><i class="fas fa-check"></i></span> 1 historia con mención de tu marca</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Tag directo a tu perfil o sitio web</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Ubicación o link de tu negocio</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> 1 historia en Instagram o TikTok</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Ambos creadores en la historia</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Tag directo a tu perfil o web</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Publicación en menos de 48 horas</li>
             </ul>
-            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+el+paquete+Historia+Express+de+Los+Influenciados.+%C2%BFMe+pueden+contar+c%C3%B3mo+funciona+y+cu%C3%A1nto+vale%3F"
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+el+paquete+Historia+Simple+de+Los+Influenciados.+%C2%BFMe+pueden+contar+c%C3%B3mo+funciona%3F"
                target="_blank" rel="noopener noreferrer" class="pkg-cta cta-bronze">
               <i class="fab fa-whatsapp"></i> Me interesa
             </a>
           </div>
         </div>
 
-        <!-- Paquete 2: Post Colaborativo -->
-        <div class="pkg">
+        <!-- 2: Historia Premium -->
+        <div class="pkg popular">
           <div class="pkg-stripe s-silver"></div>
+          <span class="popular-label" style="background:linear-gradient(135deg,#374151,#6b7280)">✦ Más alcance</span>
           <div class="pkg-body">
             <div class="pkg-top">
               <div>
-                <span class="pkg-badge b-silver">📸 Post Colaborativo</span>
-                <div class="pkg-name">Contenido en feed</div>
+                <span class="pkg-badge b-silver">📱 Historia Premium</span>
+                <div class="pkg-name">Doble plataforma</div>
               </div>
               <div class="pkg-price">
                 <span class="p-tag">valor lanzamiento</span>
-                <span class="p-amount" style="color:#d1d5db">$40.000</span>
+                <span class="p-amount" style="color:#374151">$30.000</span>
                 <span class="p-period">por campaña</span>
               </div>
             </div>
-            <p class="pkg-ideal">Ideal para mostrar un producto, local o experiencia puntual con mayor visibilidad.</p>
+            <p class="pkg-ideal">Historias en Instagram y TikTok de ambos. Más alcance, más impacto.</p>
             <ul class="pkg-features">
-              <li><span class="f-check"><i class="fas fa-check"></i></span> 1 post o reel corto en el feed</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Caption con hashtags optimizados</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Mención directa de tu marca</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> 3 historias de apoyo</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Entrega en 72 horas</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Historias en Instagram Y TikTok</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Ambos creadores en el contenido</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> 2 plataformas × 2 creadores</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Tag directo a tu perfil o web</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Publicación en menos de 48 horas</li>
             </ul>
-            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+el+paquete+Post+Colaborativo+de+Los+Influenciados.+%C2%BFPodemos+conversar+sobre+mi+negocio%3F"
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+el+paquete+Historia+Premium+de+Los+Influenciados.+%C2%BFPodemos+conversar%3F"
                target="_blank" rel="noopener noreferrer" class="pkg-cta cta-silver">
               <i class="fab fa-whatsapp"></i> Me interesa
             </a>
           </div>
         </div>
 
-        <!-- Paquete 3: Experiencia Viral -->
-        <div class="pkg popular">
-          <div class="pkg-stripe s-gold"></div>
-          <span class="popular-label">⭐ Más popular</span>
+        <!-- 3: Reel Simple -->
+        <div class="pkg">
+          <div class="pkg-stripe s-teal"></div>
           <div class="pkg-body">
             <div class="pkg-top">
               <div>
-                <span class="pkg-badge b-gold">🎬 Experiencia Viral</span>
-                <div class="pkg-name">Video completo</div>
+                <span class="pkg-badge b-teal">🎬 Reel Simple</span>
+                <div class="pkg-name">Video en una red</div>
               </div>
               <div class="pkg-price">
                 <span class="p-tag">valor lanzamiento</span>
-                <span class="p-amount g-main" style="-webkit-text-fill-color:transparent">$90.000</span>
+                <span class="p-amount" style="background:linear-gradient(135deg,#0e7490,#06b6d4);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">$80.000</span>
                 <span class="p-period">por campaña</span>
               </div>
             </div>
-            <p class="pkg-ideal">Ideal para marcas que quieren un video completo con ambos creadores y máximo alcance.</p>
+            <p class="pkg-ideal">Video publicado en Instagram o TikTok de ambos. Contenido directo y efectivo.</p>
             <ul class="pkg-features">
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Video de 30 a 60 segundos dedicado</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Ambos creadores en el contenido</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Reel en Instagram o TikTok</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Ambos creadores en el video</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Guion creativo incluido</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Grabación presencial si aplica</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Publicación en Instagram y TikTok</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> 5 historias de apoyo</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Edición profesional</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Publicación optimizada para el algoritmo</li>
+            </ul>
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+el+paquete+Reel+Simple+de+Los+Influenciados.+%C2%BFMe+pueden+dar+m%C3%A1s+info%3F"
+               target="_blank" rel="noopener noreferrer" class="pkg-cta cta-teal">
+              <i class="fab fa-whatsapp"></i> Me interesa
+            </a>
+          </div>
+        </div>
+
+        <!-- 4: Reel Premium -->
+        <div class="pkg popular">
+          <div class="pkg-stripe s-gold"></div>
+          <span class="popular-label">⭐ Más elegido</span>
+          <div class="pkg-body">
+            <div class="pkg-top">
+              <div>
+                <span class="pkg-badge b-gold">🎬 Reel Premium</span>
+                <div class="pkg-name">Video en ambas redes</div>
+              </div>
+              <div class="pkg-price">
+                <span class="p-tag">valor lanzamiento</span>
+                <span class="p-amount g-main" style="-webkit-text-fill-color:transparent">$120.000</span>
+                <span class="p-period">por campaña</span>
+              </div>
+            </div>
+            <p class="pkg-ideal">Video en Instagram Y TikTok de ambos creadores. Máximo alcance y resultados.</p>
+            <ul class="pkg-features">
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Reel en Instagram Y TikTok</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Ambos creadores en el video</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Guion creativo incluido</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> 2 plataformas × 2 creadores</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Edición profesional</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Hasta 2 revisiones incluidas</li>
             </ul>
-            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+el+paquete+Experiencia+Viral+de+Los+Influenciados.+Quiero+saber+disponibilidad%2C+valores+y+c%C3%B3mo+ser%C3%ADa+la+grabaci%C3%B3n."
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+el+paquete+Reel+Premium+de+Los+Influenciados.+Quiero+saber+disponibilidad+y+c%C3%B3mo+funciona."
                target="_blank" rel="noopener noreferrer" class="pkg-cta cta-gold">
               <i class="fab fa-whatsapp"></i> Me interesa
             </a>
           </div>
         </div>
 
-        <!-- Paquete 4: Campaña Mensual -->
+        <!-- 5: Pack Mensual Simple -->
         <div class="pkg">
-          <div class="pkg-stripe s-launch"></div>
+          <div class="pkg-stripe s-indigo"></div>
           <div class="pkg-body">
             <div class="pkg-top">
               <div>
-                <span class="pkg-badge b-launch">🚀 Campaña Mensual</span>
+                <span class="pkg-badge b-indigo">🚀 Pack Mensual Simple</span>
                 <div class="pkg-name">Presencia constante</div>
               </div>
               <div class="pkg-price">
                 <span class="p-tag">valor lanzamiento</span>
-                <span class="p-amount g-purple" style="-webkit-text-fill-color:transparent">$180.000</span>
+                <span class="p-amount" style="background:linear-gradient(135deg,#312e81,#4f46e5);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">$220.000</span>
                 <span class="p-period">por mes</span>
               </div>
             </div>
-            <p class="pkg-ideal">Ideal para negocios que quieren presencia continua y una estrategia de contenido mensual.</p>
+            <p class="pkg-ideal">4 historias + 4 reels en una plataforma de ambos. Constancia que genera ventas.</p>
             <ul class="pkg-features">
+              <li><span class="f-check"><i class="fas fa-check"></i></span> 4 historias + 4 reels por mes</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> En Instagram o TikTok de ambos</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Estrategia de contenido mensual</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> 1 a 4 videos según acuerdo</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Historias durante todo el mes</li>
-              <li><span class="f-check"><i class="fas fa-check"></i></span> Presencia en nuestra página web</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Presencia continua durante el mes</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Reporte simple de métricas</li>
+            </ul>
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+el+Pack+Mensual+Simple+de+Los+Influenciados.+%C2%BFPodemos+conversar+sobre+mi+negocio%3F"
+               target="_blank" rel="noopener noreferrer" class="pkg-cta cta-indigo">
+              <i class="fab fa-whatsapp"></i> Me interesa
+            </a>
+          </div>
+        </div>
+
+        <!-- 6: Pack Mensual Premium -->
+        <div class="pkg popular">
+          <div class="pkg-stripe s-launch"></div>
+          <span class="popular-label" style="background:linear-gradient(135deg,var(--purple),var(--pink))">🏆 Ideal para marca</span>
+          <div class="pkg-body">
+            <div class="pkg-top">
+              <div>
+                <span class="pkg-badge b-launch">🚀 Pack Mensual Premium</span>
+                <div class="pkg-name">Estrategia completa</div>
+              </div>
+              <div class="pkg-price">
+                <span class="p-tag">valor lanzamiento</span>
+                <span class="p-amount g-purple" style="-webkit-text-fill-color:transparent">$280.000</span>
+                <span class="p-period">por mes</span>
+              </div>
+            </div>
+            <p class="pkg-ideal">4 historias + 4 reels en Instagram Y TikTok de ambos. Estrategia completa, resultados reales.</p>
+            <ul class="pkg-features">
+              <li><span class="f-check"><i class="fas fa-check"></i></span> 4 historias + 4 reels por mes</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> En Instagram Y TikTok de ambos</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> 2 plataformas × 2 creadores</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Estrategia de contenido mensual completa</li>
+              <li><span class="f-check"><i class="fas fa-check"></i></span> Reporte completo de métricas</li>
               <li><span class="f-check"><i class="fas fa-check"></i></span> Prioridad de agenda</li>
             </ul>
-            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+una+campa%C3%B1a+mensual+de+contenido+con+Los+Influenciados.+%C2%BFPodemos+conversar%3F"
+            <a href="https://wa.me/56933830479?text=Hola%21+Me+interesa+el+Pack+Mensual+Premium+de+Los+Influenciados.+Quiero+estrategia+completa+para+mi+marca."
                target="_blank" rel="noopener noreferrer" class="pkg-cta cta-launch">
               <i class="fab fa-whatsapp"></i> Me interesa
             </a>
@@ -669,16 +743,37 @@
           <span class="g-main" style="-webkit-text-fill-color:transparent">Los Influenciados?</span>
         </h2>
         <p class="final-cta-sub">Escríbenos y en menos de 24 horas te contamos cómo funciona.</p>
-        <div class="final-cta-btns">
-          <a href="https://wa.me/56933830479?text=Hola%21+Vi+la+p%C3%A1gina+de+Los+Influenciados+y+me+interesa+saber+c%C3%B3mo+podr%C3%ADamos+colaborar+con+mi+negocio%2Fmarca."
-             target="_blank" rel="noopener noreferrer" class="wsp-btn">
-            <i class="fab fa-whatsapp" style="font-size:18px"></i>
-            Hablar por WhatsApp
-          </a>
-          <a href="index.html" class="landing-btn">
-            <i class="fas fa-arrow-left" style="font-size:13px"></i>
-            Volver al inicio
-          </a>
+        <div class="final-cta-btns" style="flex-direction:column;align-items:center;gap:14px">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+            <a href="https://wa.me/56933830479?text=Hola%21+Vi+la+p%C3%A1gina+de+Los+Influenciados+y+me+interesa+saber+c%C3%B3mo+podr%C3%ADamos+colaborar+con+mi+negocio%2Fmarca."
+               target="_blank" rel="noopener noreferrer" class="wsp-btn">
+              <i class="fab fa-whatsapp" style="font-size:18px"></i>
+              Hablar por WhatsApp
+            </a>
+            <a href="index.html" class="landing-btn">
+              <i class="fas fa-arrow-left" style="font-size:13px"></i>
+              Volver al inicio
+            </a>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;width:100%;max-width:400px">
+            <span style="flex:1;height:1px;background:rgba(15,26,58,0.12)"></span>
+            <span style="font-size:11px;color:rgba(15,26,58,0.45);white-space:nowrap;letter-spacing:0.5px">o agenda una reunión</span>
+            <span style="flex:1;height:1px;background:rgba(15,26,58,0.12)"></span>
+          </div>
+          <p style="font-size:13px;color:rgba(15,26,58,0.6);line-height:1.5;text-align:center;max-width:380px;margin:0">Videollamada de 20 min para contarte cómo influenciamos tu negocio.</p>
+          <script>
+          (function() {
+            var target = document.currentScript;
+            window.addEventListener('load', function() {
+              calendar.schedulingButton.load({
+                url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0xMCU7ocIMgxhgzpfP9LUQkTCVbt1DNL-UKLAqDuZIPuhxDRDGdF6DJ0bot1yRlNQmDCEx8v3i?gv=true',
+                color: '#C27A3A',
+                label: 'Agendar reunión',
+                target,
+              });
+            });
+          })();
+          </script>
         </div>
       </div>
 

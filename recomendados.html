@@ -8,13 +8,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+  <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #050508;
-      --bg2:       #0F0A05;
+      --bg:        #FAF9F7;
+      --bg2:       #F0EDE7;
       --blue:      #2A50B0;
       --blue-l:    #5078D0;
       --purple:    #C27A3A;
@@ -22,16 +24,16 @@
       --cyan:      #9B6A45;
       --cyan-l:    #D4956A;
       --pink:      #A0522D;
-      --green:     #4ade80;
-      --white:     #ffffff;
-      --w80:       rgba(255,255,255,0.8);
-      --w60:       rgba(255,255,255,0.6);
-      --w40:       rgba(255,255,255,0.4);
-      --w20:       rgba(255,255,255,0.2);
-      --w10:       rgba(255,255,255,0.1);
-      --w05:       rgba(255,255,255,0.05);
-      --border:    rgba(255,255,255,0.08);
-      --border-h:  rgba(255,255,255,0.15);
+      --green:     #16a34a;
+      --white:     #0F1A3A;
+      --w80:       rgba(15,26,58,0.85);
+      --w60:       rgba(15,26,58,0.6);
+      --w40:       rgba(15,26,58,0.4);
+      --w20:       rgba(15,26,58,0.2);
+      --w10:       rgba(15,26,58,0.1);
+      --w05:       rgba(15,26,58,0.05);
+      --border:    rgba(15,26,58,0.1);
+      --border-h:  rgba(15,26,58,0.22);
       --r:         18px;
       --r-lg:      24px;
     }
@@ -54,7 +56,7 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       padding: 14px 32px;
-      background: rgba(5,5,8,0.88);
+      background: rgba(250,249,247,0.92);
       backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between; gap: 24px;
@@ -105,8 +107,8 @@
     .hero-grid {
       position: absolute; inset: 0; pointer-events: none;
       background-image:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(15,26,58,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,26,58,0.05) 1px, transparent 1px);
       background-size: 52px 52px;
     }
     @keyframes gFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-28px)} }
@@ -315,8 +317,8 @@
     .btn-wsp {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 14px 32px; border-radius: 100px;
-      background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25);
-      color: #4ade80; font-size: 15px; font-weight: 700;
+      background: rgba(37,211,102,0.08); border: 1px solid rgba(37,211,102,0.25);
+      color: #15803d; font-size: 15px; font-weight: 700;
       text-decoration: none; transition: background 0.2s, box-shadow 0.2s;
     }
     .btn-wsp:hover { background: rgba(37,211,102,0.18); box-shadow: 0 6px 24px rgba(37,211,102,0.2); }
@@ -519,6 +521,27 @@
           <i class="fas fa-tag" aria-hidden="true"></i>
           Ver servicios y precios
         </a>
+      </div>
+      <div style="margin-top:28px;display:flex;align-items:center;gap:10px;width:100%;max-width:420px;margin-left:auto;margin-right:auto">
+        <span style="flex:1;height:1px;background:rgba(194,122,58,0.25)"></span>
+        <span style="font-size:11px;color:rgba(15,26,58,0.45);white-space:nowrap;letter-spacing:0.5px">o agenda una reunión con nosotros</span>
+        <span style="flex:1;height:1px;background:rgba(194,122,58,0.25)"></span>
+      </div>
+      <p style="font-size:13px;color:rgba(15,26,58,0.55);line-height:1.5;text-align:center;margin:12px auto 16px;max-width:380px;position:relative">Conversamos 20 min y te armamos una propuesta para tu negocio.</p>
+      <div style="text-align:center;position:relative">
+        <script>
+        (function() {
+          var target = document.currentScript;
+          window.addEventListener('load', function() {
+            calendar.schedulingButton.load({
+              url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0xMCU7ocIMgxhgzpfP9LUQkTCVbt1DNL-UKLAqDuZIPuhxDRDGdF6DJ0bot1yRlNQmDCEx8v3i?gv=true',
+              color: '#C27A3A',
+              label: 'Agendar reunión gratuita',
+              target,
+            });
+          });
+        })();
+        </script>
       </div>
     </div>
 
